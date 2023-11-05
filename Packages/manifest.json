@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.lr.core": "file:D:/Todo/Repositorios/LRCore/Builds/v0.0.1/LR Core v0.0.1.tar.gz",
     "com.unity.collab-proxy": "2.0.5",
     "com.unity.feature.2d": "2.0.0",
     "com.unity.ide.rider": "3.0.24",
