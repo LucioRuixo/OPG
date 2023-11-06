@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105d5d977258cc44f939a76a1a0a1984, type: 3}
   m_Name: HitoHitoNoMiModelNika
   m_EditorClassIdentifier: 
-  name: 'Hito Hito no Mi, Model: Nika'
+  name: Hito Hito no Mi
+  englishName: Human-Human Fruit
+  model: Nika

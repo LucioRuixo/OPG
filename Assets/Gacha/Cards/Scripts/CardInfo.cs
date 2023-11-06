@@ -64,9 +64,26 @@ namespace OPG.Cards
             if (character)
             {
                 if (race) race.Text = $"Race: {character.Race.Name}";
+
                 if (origin) origin.Text = $"Origin: {character.Origin.Name}";
-                if (devilFruit) devilFruit.Text = $"Devil fruit: {(character.DevilFruit ? character.DevilFruit.Name : "-")}";
+
+                if (devilFruit) devilFruit.Text = ProcessDevilFruitName(character.DevilFruit);
             }
+        }
+
+        private string ProcessDevilFruitName(DevilFruit devilFruit)
+        {
+            string devilFruitText = "Devil fruit: ";
+
+            if (devilFruit)
+            {
+                devilFruitText += devilFruit.Name;
+                devilFruitText += $" ({devilFruit.EnglishName})";
+                if (!string.IsNullOrEmpty(devilFruit.Model)) devilFruitText += $", Model: {devilFruit.Model}";
+            }
+            else devilFruitText += "-";
+
+            return devilFruitText;
         }
     }
 }
