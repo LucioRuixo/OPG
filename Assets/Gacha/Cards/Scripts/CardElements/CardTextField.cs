@@ -6,12 +6,10 @@ namespace OPG.Cards
     [ExecuteAlways]
     public class CardTextField : MonoBehaviour
     {
-        [SerializeField] protected string text;
-
-        [Space]
-
         [SerializeField] private TMP_Text textField;
 
-        private void Update() => textField.text = text;
+        public string Text { get; set; }
+
+        private void Update() => textField.text = Text;
     }
 }

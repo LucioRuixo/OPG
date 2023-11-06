@@ -297,7 +297,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -399,6 +399,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1274125068}
     m_Modifications:
+    - target: {fileID: 629545104304809837, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4346291927226996759, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -429,11 +433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4346291927226996759, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 4346291927226996759, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4346291927226996759, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
       propertyPath: m_LocalPosition.x
@@ -483,9 +487,117 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5521807866191232046, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 11400000, guid: b929f77080a795d4b84474b058cfd586, type: 2}
     - target: {fileID: 6504651014999719963, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
       propertyPath: m_Name
       value: VerticalCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7207764594076668727, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_text
+      value: 'Devil fruit: Hito Hito no Mi, Model: Nika'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7207764594076668727, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510221152212362532, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 11400000, guid: b929f77080a795d4b84474b058cfd586, type: 2}
+    - target: {fileID: 7510221152212362532, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: entityPath
+      value: Characters/Luffy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961548420346082439, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8047469580499122223, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088720217708953813, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_text
+      value: 'Origin: Goa Kingdom'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088720217708953813, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184070523311197309, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_text
+      value: 'Race: Human'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184070523311197309, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928858403408358349, guid: 5e0d8aafce3002a4b9a8a74ebf908457, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

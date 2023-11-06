@@ -7,7 +7,6 @@ namespace OPG.Cards
     [RequireComponent(typeof(AspectRatio))]
     public class CardImageFrame : MonoBehaviour
     {
-		
 
     }
 }
