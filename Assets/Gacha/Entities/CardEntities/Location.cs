@@ -7,7 +7,14 @@ namespace OPG.Entities
     [Serializable]
     public class Location : Entity<HorizontalCardData>
     {
-        public override void DisplayInfo()
+        protected override string ListedPrefix => "Location";
+
+        public override void DisplayFrontInfo(FrontFace frontFace)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayBackInfo(BackFace backFace)
         {
             throw new NotImplementedException();
         }

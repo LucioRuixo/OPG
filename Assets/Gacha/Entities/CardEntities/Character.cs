@@ -25,7 +25,7 @@ namespace OPG.Entities
             NameTypes.Name
         };
 
-        public override string Name => ProcessName();
+        public override string Name => ProcessFullName();
 
         [Header("Info")]
 
@@ -48,7 +48,9 @@ namespace OPG.Entities
         public string[] Descriptions => descriptions;
         public string SelectedDescription => Descriptions.Length == 0 ? "" : $"\"{Descriptions[0]}\"";
 
-        private string ProcessName()
+        protected override string ListedPrefix => "Character";
+
+        private string ProcessFullName()
         {
             string fullName = "";
 
@@ -77,9 +79,18 @@ namespace OPG.Entities
             return fullName;
         }
 
-        public override void DisplayInfo()
+        public override void DisplayFrontInfo(FrontFace frontFace)
         {
-            throw new System.NotImplementedException();
+            frontFace.NameField.Text = ProcessFullName();
+            frontFace.TitleField.Text = SelectedTitle;
+            frontFace.DescriptionField.Text = SelectedDescription;
+        }
+
+        public override void DisplayBackInfo(BackFace backFace)
+        {
+            backFace.InfoFields[0].Text = Race.DefaultListedName;
+            backFace.InfoFields[1].Text = $"Origin: {Origin.Name}";
+            backFace.InfoFields[2].Text = DevilFruit.DefaultListedName;
         }
     }
 }

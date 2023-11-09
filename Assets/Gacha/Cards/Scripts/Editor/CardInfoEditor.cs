@@ -7,7 +7,7 @@ namespace OPG.Editor
 
     using Editor = UnityEditor.Editor;
 
-    [CustomEditor(typeof(CardInfo))]
+    [CustomEditor(typeof(Card))]
     public class CardInfoEditor : Editor
     {
         public override void OnInspectorGUI()
@@ -19,6 +19,6 @@ namespace OPG.Editor
             if (GUILayout.Button("Load entity")) LoadEntity();
         }
 
-        private void LoadEntity() => ((CardInfo)target).LoadEntity();
+        private void LoadEntity() => ((Card)target).LoadEntity();
     }
 }

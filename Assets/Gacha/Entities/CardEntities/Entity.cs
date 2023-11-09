@@ -6,16 +6,16 @@ namespace OPG.Entities
     {
         public override GameObject LoadCard(Transform target)
         {
-            string prefabPath = new CardFormat().PrefabPath;
-            GameObject cardPrefab = Resources.Load<GameObject>(prefabPath);
+            string formatPrefabPath = new CardFormat().PrefabPath;
+            GameObject formatdPrefab = Resources.Load<GameObject>(formatPrefabPath);
 
-            if (!cardPrefab)
+            if (!formatdPrefab)
             {
-                LRCore.Logger.LogError(this, $"Could not load card: card prefab failed to load from path \"{prefabPath}\"");
+                LRCore.Logger.LogError(this, $"Could not load card: card format prefab failed to load from path \"{formatPrefabPath}\"");
                 return null;
             }
 
-            return Instantiate(cardPrefab, target);
+            return Instantiate(formatdPrefab, target);
         }
     }
 }

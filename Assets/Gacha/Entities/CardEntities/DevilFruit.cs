@@ -13,7 +13,14 @@ namespace OPG.Entities
         [SerializeField] private string model;
         public string Model => model;
 
-        public override void DisplayInfo()
+        protected override string ListedPrefix => "Devil fruit";
+
+        public override void DisplayFrontInfo(FrontFace frontFace)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void DisplayBackInfo(BackFace backFace)
         {
             throw new System.NotImplementedException();
         }
