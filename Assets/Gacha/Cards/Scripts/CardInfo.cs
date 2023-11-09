@@ -4,7 +4,7 @@ namespace OPG.Cards
 {
     using Entities;
 
-    [ExecuteAlways, RequireComponent(typeof(Card))]
+    [ExecuteAlways]
     public class CardInfo : MonoBehaviour
     {
         [Header("Front")]
@@ -17,7 +17,8 @@ namespace OPG.Cards
         [SerializeField] private CardTextField origin;
         [SerializeField] private CardTextField devilFruit;
 
-        [SerializeField, HideInInspector] private Entity entity;
+        private EntityBase entity;
+        private GameObject formatObject;
 
         private ITitles titles;
         private IDescriptions descriptions;
@@ -35,7 +36,7 @@ namespace OPG.Cards
 
         private void Update()
         {
-            if (!entity) return;
+            //if (!entity) return;
 
             SetFrontInfo();
             SetBackInfo();
@@ -43,47 +44,53 @@ namespace OPG.Cards
 
         private void SetFrontInfo()
         {
-            if (name) name.Text = entity.Name;
-
-            if (title)
-            {
-                ITitles entityTitles = (ITitles)entity;
-                if (entityTitles != null) title.Text = entityTitles.SelectedTitle;
-            }
-
-            if (description)
-            {
-                IDescriptions entityDescriptions = (IDescriptions)entity;
-                if (entityDescriptions != null) description.Text = entityDescriptions.SelectedDescription;
-            }
+            //if (name) name.Text = entity.Name;
+            //
+            //if (title)
+            //{
+            //    ITitles entityTitles = (ITitles)entity;
+            //    if (entityTitles != null) title.Text = entityTitles.SelectedTitle;
+            //}
+            //
+            //if (description)
+            //{
+            //    IDescriptions entityDescriptions = (IDescriptions)entity;
+            //    if (entityDescriptions != null) description.Text = entityDescriptions.SelectedDescription;
+            //}
         }
 
         private void SetBackInfo()
         {
-            Character character = (Character)entity;
-            if (character)
-            {
-                if (race) race.Text = $"Race: {character.Race.Name}";
-
-                if (origin) origin.Text = $"Origin: {character.Origin.Name}";
-
-                if (devilFruit) devilFruit.Text = ProcessDevilFruitName(character.DevilFruit);
-            }
+            //Character character = (Character)entity;
+            //if (character)
+            //{
+            //    if (race) race.Text = $"Race: {character.Race.Name}";
+            //
+            //    if (origin) origin.Text = $"Origin: {character.Origin.Name}";
+            //
+            //    if (devilFruit) devilFruit.Text = ProcessDevilFruitName(character.DevilFruit);
+            //}
         }
 
-        private string ProcessDevilFruitName(DevilFruit devilFruit)
+        public void LoadEntity()
         {
-            string devilFruitText = "Devil fruit: ";
+            entity = Resources.Load<EntityBase>(Card.EntityPath);
 
-            if (devilFruit)
+            if (!entity)
             {
-                devilFruitText += devilFruit.Name;
-                devilFruitText += $" ({devilFruit.EnglishName})";
-                if (!string.IsNullOrEmpty(devilFruit.Model)) devilFruitText += $", Model: {devilFruit.Model}";
+                LRCore.Logger.LogError(this, "Entity could not be loaded");
+                return;
             }
-            else devilFruitText += "-";
 
-            return devilFruitText;
+            if (formatObject)
+            {
+                if (Application.isEditor) DestroyImmediate(formatObject);
+                else Destroy(formatObject);
+
+                formatObject = null;
+            }
+
+            formatObject = entity.LoadCard(transform);
         }
     }
 }

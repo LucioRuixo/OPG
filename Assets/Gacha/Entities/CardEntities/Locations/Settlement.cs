@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    [CreateAssetMenu(fileName = "NewStructure", menuName = "OPG/Location/Structure")]
-    public class Structure : Location, ILocatable
+    [CreateAssetMenu(fileName = "NewSettlement", menuName = "OPG Entities/Location/Settlement")]
+    public class Settlement : Location, ILocatable
     {
         [SerializeField] private Location location;
         public Location Location => location;

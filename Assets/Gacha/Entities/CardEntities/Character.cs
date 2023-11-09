@@ -2,8 +2,10 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    [CreateAssetMenu(fileName = "NewCharacter", menuName = "OPG/Character")]
-    public class Character : Entity, ITitles, IDescriptions
+    using Cards;
+
+    [CreateAssetMenu(fileName = "NewCharacter", menuName = "OPG Entities/Character")]
+    public class Character : Entity<VerticalCardData>, ITitles, IDescriptions
     {
         private enum NameTypes
         {
@@ -73,6 +75,11 @@ namespace OPG.Entities
             }
 
             return fullName;
+        }
+
+        public override void DisplayInfo()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

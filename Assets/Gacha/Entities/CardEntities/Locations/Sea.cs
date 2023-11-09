@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    [CreateAssetMenu(fileName = "NewSea", menuName = "OPG/Location/Sea")]
+    [CreateAssetMenu(fileName = "NewSea", menuName = "OPG Entities/Location/Sea")]
     public class Sea : Location
     {
 		

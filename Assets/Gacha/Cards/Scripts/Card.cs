@@ -4,7 +4,7 @@ namespace OPG.Cards
 {
     using Utils;
 
-    [ExecuteAlways, RequireComponent(typeof(AspectRatio)), RequireComponent(typeof(CardInfo))]
+    [ExecuteAlways, RequireComponent(typeof(CardInfo))]
     public class Card : MonoBehaviour
     {
         private const float ReferenceSize = 1000.0f;

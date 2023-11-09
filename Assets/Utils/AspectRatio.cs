@@ -8,6 +8,8 @@ namespace OPG.Utils
         [SerializeField] private float referenceSize = 1000.0f;
         [SerializeField] private Vector2Int aspectRatio;
 
+        public Vector2Int _AspectRatio { get => aspectRatio; set => aspectRatio = value; }
+
         private RectTransform rect;
 
         public float ReferenceSize { get => referenceSize; set => referenceSize = value; }
