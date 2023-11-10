@@ -13,6 +13,7 @@ namespace OPG.Entities
         [SerializeField] private string model;
         public string Model => model;
 
+        public override string DisplayName => $"{Name} ({EnglishName}){(string.IsNullOrEmpty(Model) ? "" : $", Model: {Model}")}";
         protected override string ListedPrefix => "Devil fruit";
 
         public override void DisplayFrontInfo(FrontFace frontFace)

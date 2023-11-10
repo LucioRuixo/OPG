@@ -11,7 +11,9 @@ namespace OPG.Entities
         [SerializeField] new protected string name;
         public virtual string Name => name;
 
-        public string DefaultListedName => $"{ListedPrefix}: {Name}";
+        public virtual string DisplayName => Name;
+
+        public string DefaultListedName => $"{ListedPrefix}: {DisplayName}";
 
         public abstract GameObject LoadCard(Transform target);
 
