@@ -13,9 +13,17 @@ namespace OPG.Cards
         [SerializeField] private CardDescription descriptionField;
         public CardDescription DescriptionField => descriptionField;
 
+        [Space]
+
+        [SerializeField] private CardImageViewport imageViewport;
+        public CardImageViewport ImageViewport => imageViewport;
+
         public override void Clear()
         {
-            throw new System.NotImplementedException();
+            nameField.Text = "";
+            titleField.Text = "";
+            descriptionField.Text = "";
+            imageViewport.Image.sprite = null;
         }
     }
 }
