@@ -25,7 +25,9 @@ namespace OPG.Entities
             NameTypes.Name
         };
 
-        public override string Name => ProcessFullName();
+        [Space]
+
+        [SerializeField] private Sprite image;
 
         [Header("Info")]
 
@@ -41,10 +43,13 @@ namespace OPG.Entities
         [Space]
 
         [SerializeField] private string[] titles;
+        [SerializeField] private string[] descriptions;
+
+        public override string Name => ProcessFullName();
+
         public string[] Titles => titles;
         public string SelectedTitle => Titles.Length == 0 ? "" : Titles[0];
 
-        [SerializeField] private string[] descriptions;
         public string[] Descriptions => descriptions;
         public string SelectedDescription => Descriptions.Length == 0 ? "" : $"\"{Descriptions[0]}\"";
 
@@ -84,6 +89,7 @@ namespace OPG.Entities
             frontFace.NameField.Text = ProcessFullName();
             frontFace.TitleField.Text = SelectedTitle;
             frontFace.DescriptionField.Text = SelectedDescription;
+            frontFace.ImageViewport.Image.sprite = image;
         }
 
         public override void DisplayBackInfo(BackFace backFace)
