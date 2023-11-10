@@ -5,7 +5,7 @@ namespace OPG.Entities
     using Cards;
 
     [CreateAssetMenu(fileName = "NewCharacter", menuName = "OPG Entities/Character")]
-    public class Character : Entity<VerticalCardData>, ITitles, IDescriptions
+    public class Character : BORRAR<VerticalCardData>, ITitles, IDescriptions
     {
         private enum NameTypes
         {
@@ -25,10 +25,6 @@ namespace OPG.Entities
             NameTypes.Name
         };
 
-        [Space]
-
-        [SerializeField] private Sprite image;
-
         [Header("Info")]
 
         [SerializeField] private Race race;
@@ -45,7 +41,7 @@ namespace OPG.Entities
         [SerializeField] private string[] titles;
         [SerializeField] private string[] descriptions;
 
-        public override string Name => ProcessFullName();
+        public override string Name => GetFullName();
 
         public string[] Titles => titles;
         public string SelectedTitle => Titles.Length == 0 ? "" : Titles[0];
@@ -55,7 +51,7 @@ namespace OPG.Entities
 
         protected override string ListedPrefix => "Character";
 
-        private string ProcessFullName()
+        public string GetFullName()
         {
             string fullName = "";
 
@@ -82,21 +78,6 @@ namespace OPG.Entities
             }
 
             return fullName;
-        }
-
-        public override void DisplayFrontInfo(FrontFace frontFace)
-        {
-            frontFace.NameField.Text = ProcessFullName();
-            frontFace.TitleField.Text = SelectedTitle;
-            frontFace.DescriptionField.Text = SelectedDescription;
-            frontFace.ImageViewport.Image.sprite = image;
-        }
-
-        public override void DisplayBackInfo(BackFace backFace)
-        {
-            backFace.InfoFields[0].Text = Race.DefaultListedName;
-            backFace.InfoFields[1].Text = $"Origin: {Origin.Name}";
-            backFace.InfoFields[2].Text = DevilFruit.DefaultListedName;
         }
     }
 }

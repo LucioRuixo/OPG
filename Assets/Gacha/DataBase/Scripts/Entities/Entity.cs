@@ -4,7 +4,7 @@ namespace OPG.Entities
 {
     using Cards;
 
-    public abstract class EntityBase : ScriptableObject
+    public abstract class Entity : ScriptableObject
     {
         protected abstract string ListedPrefix { get; }
 
@@ -14,10 +14,5 @@ namespace OPG.Entities
         public virtual string DisplayName => Name;
 
         public string DefaultListedName => $"{ListedPrefix}: {DisplayName}";
-
-        public abstract GameObject LoadCard(Transform target);
-
-        public abstract void DisplayFrontInfo(FrontFace frontFace);
-        public abstract void DisplayBackInfo(BackFace backFace);
     }
 }

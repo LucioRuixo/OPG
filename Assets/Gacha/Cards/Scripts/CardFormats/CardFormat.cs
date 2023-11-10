@@ -17,6 +17,8 @@ namespace OPG.Cards
         public FrontFace FrontFace => frontFace;
         public BackFace BackFace => backFace;
 
+        public CardDataBase CardData { get; set; }
+
         private AspectRatio aspectRatio;
         protected AspectRatio AspectRatio
         {
@@ -31,6 +33,12 @@ namespace OPG.Cards
         {
             AspectRatio.ReferenceSize = ReferenceSize;
             AspectRatio._AspectRatio = cardAspectRatio;
+
+            if (CardData)
+            {
+                CardData.DisplayFrontInfo(frontFace);
+                CardData.DisplayBackInfo(backFace);
+            }
         }
     }
 }

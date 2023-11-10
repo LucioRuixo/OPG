@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: NoDevilFruit
   m_EditorClassIdentifier: 
   name: '-'
-  englishName: '-'
+  englishName: 
   model: 

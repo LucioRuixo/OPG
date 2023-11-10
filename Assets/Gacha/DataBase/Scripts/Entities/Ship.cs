@@ -5,7 +5,7 @@ namespace OPG.Entities
     using Cards;
 
     [CreateAssetMenu(fileName = "NewShip", menuName = "OPG Entities/Ship")]
-    public class Ship : Entity<HorizontalCardData>, ITitles
+    public class Ship : BORRAR<HorizontalCardData>, ITitles
     {
         [SerializeField] private string[] titles;
         public string[] Titles => titles;
@@ -13,15 +13,15 @@ namespace OPG.Entities
 
         protected override string ListedPrefix => "Ship";
 
-        public override void DisplayBackInfo(BackFace backFace)
-        {
-            // ...
-        }
-
-        public override void DisplayFrontInfo(FrontFace frontFace)
-        {
-            frontFace.NameField.Text = Name;
-            frontFace.TitleField.Text = SelectedTitle;
-        }
+        //public override void DisplayBackInfo(BackFace backFace)
+        //{
+        //    // ...
+        //}
+        //
+        //public override void DisplayFrontInfo(FrontFace frontFace)
+        //{
+        //    frontFace.NameField.Text = Name;
+        //    frontFace.TitleField.Text = SelectedTitle;
+        //}
     }
 }

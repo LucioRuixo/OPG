@@ -1,10 +1,12 @@
 using UnityEngine;
 
-namespace OPG.Entities
+namespace OPG.Cards
 {
-    public abstract class Entity<CardFormat> : EntityBase where CardFormat : Cards.CardFormatData, new()
+    public abstract class CardData<Entity, CardFormat> : CardDataBase where Entity : Entities.Entity where CardFormat : CardFormatData, new()
     {
-        public override GameObject LoadCard(Transform target)
+        [SerializeField] protected Entity entity;
+
+        public override GameObject LoadFormat(Transform target)
         {
             string formatPrefabPath = new CardFormat().PrefabPath;
             GameObject formatdPrefab = Resources.Load<GameObject>(formatPrefabPath);

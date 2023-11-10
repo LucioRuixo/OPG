@@ -4,17 +4,14 @@ namespace OPG.Cards
 {
     using Entities;
 
-    [ExecuteAlways, RequireComponent(typeof(Card))]
     public class Card : MonoBehaviour
     {
         private const string DataBasePath = "DataBase";
 
-        [SerializeField] private string entityPath;
+        [SerializeField] private string cardDataPath;
 
-        private EntityBase entity;
+        private CardDataBase cardData;
         private GameObject formatObject;
-        private FrontFace frontFace;
-        private BackFace backFace;
 
         private void Awake()
         {
@@ -22,21 +19,13 @@ namespace OPG.Cards
             if (format) formatObject ??= format.gameObject;
         }
 
-        private void Update()
+        public void LoadCardData()
         {
-            if (!entity) return;
+            cardData = Resources.Load<CardDataBase>($"{DataBasePath}/{cardDataPath}");
 
-            if (frontFace) entity.DisplayFrontInfo(frontFace);
-            if (backFace) entity.DisplayBackInfo(backFace);
-        }
-
-        public void LoadEntity()
-        {
-            entity = Resources.Load<EntityBase>($"{DataBasePath}/{entityPath}");
-
-            if (!entity)
+            if (!cardData)
             {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{entityPath}\"");
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
                 return;
             }
 
@@ -48,28 +37,25 @@ namespace OPG.Cards
                 formatObject = null;
             }
 
-            formatObject = entity.LoadCard(transform);
+            formatObject = cardData.LoadFormat(transform);
 
             if (!formatObject)
             {
                 LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
                 return;
             }
-
-            CardFormat format = formatObject.GetComponent<CardFormat>();
-            frontFace = format.FrontFace;
-            backFace = format.BackFace;
         }
 
         // Debug
         // ----------
-        public void LoadEntity(string entityPath)
+        public void LoadCardData(string cardDataPath)
         {
-            entity = Resources.Load<EntityBase>($"{DataBasePath}/{entityPath}");
+            string path = $"{DataBasePath}/{cardDataPath}";
+            cardData = Resources.Load<CardDataBase>(path);
 
-            if (!entity)
+            if (!cardData)
             {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{entityPath}\"");
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{path}\"");
                 return;
             }
 
@@ -81,7 +67,7 @@ namespace OPG.Cards
                 formatObject = null;
             }
 
-            formatObject = entity.LoadCard(transform);
+            formatObject = cardData.LoadFormat(transform);
 
             if (!formatObject)
             {
@@ -90,8 +76,6 @@ namespace OPG.Cards
             }
 
             CardFormat format = formatObject.GetComponent<CardFormat>();
-            frontFace = format.FrontFace;
-            backFace = format.BackFace;
         }
         // ----------
     }
