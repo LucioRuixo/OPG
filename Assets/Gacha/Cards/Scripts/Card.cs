@@ -7,6 +7,8 @@ namespace OPG.Cards
     [ExecuteAlways, RequireComponent(typeof(Card))]
     public class Card : MonoBehaviour
     {
+        private const string DataBasePath = "DataBase";
+
         [SerializeField] private string entityPath;
 
         private EntityBase entity;
@@ -30,7 +32,7 @@ namespace OPG.Cards
 
         public void LoadEntity()
         {
-            entity = Resources.Load<EntityBase>(entityPath);
+            entity = Resources.Load<EntityBase>($"{DataBasePath}/{entityPath}");
 
             if (!entity)
             {
@@ -58,5 +60,39 @@ namespace OPG.Cards
             frontFace = format.FrontFace;
             backFace = format.BackFace;
         }
+
+        // Debug
+        // ----------
+        public void LoadEntity(string entityPath)
+        {
+            entity = Resources.Load<EntityBase>($"{DataBasePath}/{entityPath}");
+
+            if (!entity)
+            {
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{entityPath}\"");
+                return;
+            }
+
+            if (formatObject)
+            {
+                if (Application.isEditor) DestroyImmediate(formatObject);
+                else Destroy(formatObject);
+
+                formatObject = null;
+            }
+
+            formatObject = entity.LoadCard(transform);
+
+            if (!formatObject)
+            {
+                LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
+                return;
+            }
+
+            CardFormat format = formatObject.GetComponent<CardFormat>();
+            frontFace = format.FrontFace;
+            backFace = format.BackFace;
+        }
+        // ----------
     }
 }
