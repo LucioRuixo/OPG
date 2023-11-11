@@ -10,6 +10,6 @@ namespace OPG.Cards
 
         public string Text { get; set; }
 
-        private void Update() => textField.text = Text;
+        protected virtual void Update() => textField.text = Text;
     }
 }

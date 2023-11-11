@@ -10,11 +10,11 @@ namespace OPG.Editor
     [CustomEditor(typeof(Card))]
     public class CardEditor : Editor
     {
-        private const string CardDataPath = "Skins";
-
-        // Debug
-        // ----------
-        private string[] characters =
+        private const string CardDataPath = "EastBlue/RomanceDawn/RomanceDawn/Skins";
+                                             
+        // Debug                             
+        // ----------                        
+        private string[] characters =        
         {
             "RomanceDawnLuffy",
             "RomanceDawnZoro",

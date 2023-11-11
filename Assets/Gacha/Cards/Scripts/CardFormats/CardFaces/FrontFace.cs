@@ -20,9 +20,11 @@ namespace OPG.Cards
 
         public override void Clear()
         {
-            nameField.Text = "";
-            titleField.Text = "";
+            nameField.Text =
+            nameField.CollectionText =
+            titleField.Text =
             descriptionField.Text = "";
+
             imageViewport.Image.sprite = null;
         }
     }
