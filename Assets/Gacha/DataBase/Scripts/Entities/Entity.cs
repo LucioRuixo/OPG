@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    public abstract class Entity : ScriptableObject
+    using Utils;
+
+    public abstract class Entity : ScriptableObject, INameable
     {
         protected abstract string ListedPrefix { get; }
 

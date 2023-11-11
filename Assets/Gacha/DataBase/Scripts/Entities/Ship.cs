@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
+    using Utils;
+
     [CreateAssetMenu(fileName = "NewShip", menuName = "OPG Entities/Ship")]
     public class Ship : Entity, ITitles
     {
