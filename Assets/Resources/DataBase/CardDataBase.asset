@@ -35,7 +35,7 @@ MonoBehaviour:
         - path: Skins/Sanji
         - path: Skins/Usopp
         - path: Skins/Zoro
-  - id: sk
+  - id: si
     arcs:
     - id: rd
       collections:
