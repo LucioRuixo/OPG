@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1830735707364105054}
-  - component: {fileID: 3045259454789576864}
+  - component: {fileID: 2456933945424735081}
   m_Layer: 5
   m_Name: SkinCard
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3045259454789576864
+--- !u!114 &2456933945424735081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3617854031177977447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d889ce6afb9f96c49b1e4b1fb2d85669, type: 3}
+  m_Script: {fileID: 11500000, guid: abae1d1382ce28a4ebe54ba4001b701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPath: 
+  cardDataPath: 

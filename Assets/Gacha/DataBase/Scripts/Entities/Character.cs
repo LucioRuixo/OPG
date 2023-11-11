@@ -2,10 +2,8 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    using Cards;
-
     [CreateAssetMenu(fileName = "NewCharacter", menuName = "OPG Entities/Character")]
-    public class Character : BORRAR<VerticalCardData>, ITitles, IDescriptions
+    public class Character : Entity, ITitles, IDescriptions
     {
         private enum NameTypes
         {

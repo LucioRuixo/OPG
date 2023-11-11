@@ -4,6 +4,7 @@ namespace OPG.Cards
 {
     using Entities;
 
+    [CreateAssetMenu(fileName = "NewSkinCard", menuName = "OPG Cards/Skin")]
     public class SkinCard : CardData<Character, VerticalCardData>
     {
         [SerializeField] private Sprite image;

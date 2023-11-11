@@ -2,11 +2,9 @@ using UnityEngine;
 
 namespace OPG.Cards
 {
-    using Entities;
-
     public class Card : MonoBehaviour
     {
-        private const string DataBasePath = "DataBase";
+        private const string CardDataBasePath = "DataBase/Cards";
 
         [SerializeField] private string cardDataPath;
 
@@ -21,36 +19,7 @@ namespace OPG.Cards
 
         public void LoadCardData()
         {
-            cardData = Resources.Load<CardDataBase>($"{DataBasePath}/{cardDataPath}");
-
-            if (!cardData)
-            {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
-                return;
-            }
-
-            if (formatObject)
-            {
-                if (Application.isEditor) DestroyImmediate(formatObject);
-                else Destroy(formatObject);
-
-                formatObject = null;
-            }
-
-            formatObject = cardData.LoadFormat(transform);
-
-            if (!formatObject)
-            {
-                LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
-                return;
-            }
-        }
-
-        // Debug
-        // ----------
-        public void LoadCardData(string cardDataPath)
-        {
-            string path = $"{DataBasePath}/{cardDataPath}";
+            string path = $"{CardDataBasePath}/{cardDataPath}";
             cardData = Resources.Load<CardDataBase>(path);
 
             if (!cardData)
@@ -75,7 +44,39 @@ namespace OPG.Cards
                 return;
             }
 
-            CardFormat format = formatObject.GetComponent<CardFormat>();
+            formatObject.GetComponent<CardFormat>().CardData = cardData;
+        }
+
+        // Debug
+        // ----------
+        public void LoadCardData(string cardDataPath)
+        {
+            string path = $"{CardDataBasePath}/{cardDataPath}";
+            cardData = Resources.Load<CardDataBase>(path);
+
+            if (!cardData)
+            {
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{path}\"");
+                return;
+            }
+
+            if (formatObject)
+            {
+                if (Application.isEditor) DestroyImmediate(formatObject);
+                else Destroy(formatObject);
+
+                formatObject = null;
+            }
+
+            formatObject = cardData.LoadFormat(transform);
+
+            if (!formatObject)
+            {
+                LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
+                return;
+            }
+
+            formatObject.GetComponent<CardFormat>().CardData = cardData;
         }
         // ----------
     }

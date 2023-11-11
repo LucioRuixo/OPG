@@ -2,8 +2,6 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    using Cards;
-
     public abstract class Entity : ScriptableObject
     {
         protected abstract string ListedPrefix { get; }

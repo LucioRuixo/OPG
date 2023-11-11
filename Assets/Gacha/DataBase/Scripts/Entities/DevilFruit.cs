@@ -2,10 +2,8 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
-    using Cards;
-
     [CreateAssetMenu(fileName = "NewDevilFruit", menuName = "OPG Entities/Devil Fruit")]
-    public class DevilFruit : BORRAR<VerticalCardData>
+    public class DevilFruit : Entity
     {
         [SerializeField] private string englishName;
         public string EnglishName => englishName;
@@ -17,16 +15,7 @@ namespace OPG.Entities
             $"{Name}" +
             $"{(string.IsNullOrEmpty(EnglishName) ? "" : $" ({EnglishName})")}" +
             $"{(string.IsNullOrEmpty(Model) ? "" : $", Model: {Model}")}";
-        protected override string ListedPrefix => "Devil fruit";
 
-        //public override void DisplayFrontInfo(FrontFace frontFace)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-        //
-        //public override void DisplayBackInfo(BackFace backFace)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
+        protected override string ListedPrefix => "Devil fruit";
     }
 }
