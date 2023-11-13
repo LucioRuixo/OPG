@@ -7,8 +7,6 @@ namespace OPG.Cards
     [CreateAssetMenu(fileName = "NewSkinCard", menuName = "OPG Cards/Cards/Skin")]
     public class SkinCard : CardData<Character, VerticalCardData>
     {
-        [Space]
-
         [SerializeField] private Sprite image;
 
         public override void DisplayFrontInfo(FrontFace frontFace)

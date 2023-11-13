@@ -4,6 +4,8 @@ namespace OPG.Cards
 {
     public abstract class CardData<Entity, CardFormat> : CardDataBase where Entity : Entities.Entity where CardFormat : CardFormatData, new()
     {
+        [Space]
+
         [SerializeField] protected Entity entity;
 
         public override GameObject LoadFormat(Transform target)
