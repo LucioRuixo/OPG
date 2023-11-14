@@ -16,121 +16,55 @@ MonoBehaviour:
   - id: eb
     arcs:
     - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: ot
+    - id: sv
+    - id: ba
+    - id: ap
+    - id: lt
   - id: ar
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: rm
+    - id: wp
+    - id: lg
+    - id: di
+    - id: ar
   - id: si
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: ja
+    - id: sk
   - id: ws
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: lr
+    - id: w1
+    - id: el
+    - id: w2
   - id: tb
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: tb
   - id: sw
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: sa
+    - id: al
+    - id: id
+    - id: mf
+    - id: pw
   - id: fi
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: rs
+    - id: fi
   - id: dr
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: ph
+    - id: dr
   - id: wc
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: zo
+    - id: wc
+    - id: re
   - id: wk
     arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    - id: w1
+    - id: w2
+    - id: w3
   - id: eh
-    arcs:
-    - id: rd
-      collections:
-      - path: RomanceDawn
-        cards:
-        - path: Skins/Luffy
-        - path: Skins/Nami
-        - path: Skins/Sanji
-        - path: Skins/Usopp
-        - path: Skins/Zoro
+    arcs: []
