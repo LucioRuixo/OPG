@@ -4,8 +4,7 @@ namespace OPG.Cards
 {
     public abstract class CardDataBase : ScriptableObject
     {
-        [SerializeField] private Collection collection;
-        public Collection Collection => collection;
+        public Collection Collection { get; set; }
 
         public abstract GameObject LoadFormat(Transform target);
 

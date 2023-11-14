@@ -4,7 +4,7 @@ namespace OPG.Cards
 {
     public class Card : MonoBehaviour
     {
-        private const string CardDataBasePath = "DataBase/Cards";
+        private const string CardDataBasePath = "DB/Cards";
 
         [SerializeField] private string cardDataPath;
 

@@ -7,8 +7,8 @@ namespace OPG.Editor
 
     using Editor = UnityEditor.Editor;
 
-    [CustomEditor(typeof(CardDataDataBase))]
-    public class CardDataDataBaseEditor : Editor
+    [CustomEditor(typeof(CardDataDB))]
+    public class CardDataDBEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -18,7 +18,7 @@ namespace OPG.Editor
 
             if (GUILayout.Button("Serialize"))
             {
-                CardDataDataBase dataBase = (CardDataDataBase)target;
+                CardDataDB dataBase = (CardDataDB)target;
 
                 dataBase.Serialize();
             }
