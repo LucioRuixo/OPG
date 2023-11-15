@@ -10,11 +10,18 @@ using LRCore.Utils.IO;
 
 namespace OPG.Cards
 {
+    using OPGPaths = OPG.Utils.Paths;
+    using LRPaths = LRCore.Utils.Paths;
     using ArcRanges = SortedDictionary<uint, string>;
 
     [CreateAssetMenu(fileName = "CardDB", menuName = "OPG/Card DB")]
     public class CardDataDB : ScriptableObject
     {
+        #region Constants
+        private const string SkinsAssetFolderName = "Skins";
+        private const string RangesFileName = "ranges";
+        #endregion
+
         #region Classes
         [Serializable]
         public class SagaData
@@ -34,17 +41,18 @@ namespace OPG.Cards
         }
         #endregion
 
-        private readonly string dataBasePath = $"{Paths.projectFolder}/CardDB";
+        private readonly string dataBasePath = $"{LRPaths.projectFolder}/CardDB";
+        private readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
 
-        [SerializeField] private List<SagaData> sagas;
-
-        private string[] cardTypeOrder = new string[]
+        [SerializeField] private string[] cardTypeProcessingOrder = new string[]
         {
             "Skins",
             "Ships",
             "Locations",
             "DevilFruits"
         };
+
+        [SerializeField] private List<SagaData> sagas;
 
         #region Serialization
         public void Serialize()
@@ -53,7 +61,7 @@ namespace OPG.Cards
 
             foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges);
 
-            string arcRangesFile = $"ranges{Extension.ValidExts[ExtTypes.JSON].Ext}";
+            string arcRangesFile = $"{RangesFileName}{Extension.ValidExts[ExtTypes.JSON].Ext}";
             string arcRangesPath = $"{dataBasePath}/{arcRangesFile}";
             Serializer.Serialize(arcRangesPath, arcRanges);
         }
@@ -65,14 +73,14 @@ namespace OPG.Cards
 
         private void ProcessArc(ArcData arc, SagaData saga, ref ArcRanges arcRanges)
         {
-            string arcPath = $"{Paths.assetsFolder}/Resources/DB/Cards/{saga.ID}/{arc.ID}/";
+            string arcPath = $"{cardAssetsPath}/{saga.ID}/{arc.ID}/";
 
             if (!Directory.Exists(arcPath)) return;
 
             string[] arcFolders = Directory.GetDirectories(arcPath, "*", SearchOption.TopDirectoryOnly);
 
             List<string> arcCards = new List<string>();
-            foreach (string cardType in cardTypeOrder) ProcessCardType(cardType, arcFolders, ref arcCards);
+            foreach (string cardType in cardTypeProcessingOrder) ProcessCardType(cardType, arcFolders, ref arcCards);
 
             if (arcCards.Count == 0) return;
 
@@ -91,13 +99,13 @@ namespace OPG.Cards
             string[] assetPaths = Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly).
                 Where((path) => Path.GetExtension(path) == ".asset").ToArray();
 
-            if (folderPath.EndsWith("/Skins")) foreach (string assetPath in assetPaths) ProcessCollection(assetPath, ref arcCards);
+            if (folderPath.EndsWith($"/{SkinsAssetFolderName}")) foreach (string assetPath in assetPaths) ProcessCollection(assetPath, ref arcCards);
             else foreach (string assetPath in assetPaths) ProcessCard(assetPath, ref arcCards);
         }
 
         private void ProcessCollection(string collectionAssetPath, ref List<string> arcCards)
         {
-            string assetResourcesPath = collectionAssetPath.Replace($"{Paths.assetsFolder}/Resources/", "");
+            string assetResourcesPath = collectionAssetPath.Replace($"{OPGPaths.resourcesFolder}/", "");
             assetResourcesPath = assetResourcesPath.Replace(".asset", "");
 
             Collection collection = Resources.Load<Collection>(assetResourcesPath);
@@ -114,7 +122,7 @@ namespace OPG.Cards
 
         private void ProcessCard(string assetPath, ref List<string> arcCards, Collection collection = null)
         {
-            string assetResourcesPath = assetPath.Replace($"{Paths.assetsFolder}/Resources/", "");
+            string assetResourcesPath = assetPath.Replace($"{OPGPaths.resourcesFolder}/", "");
             assetResourcesPath = assetResourcesPath.Replace(".asset", "");
 
             CardDataBase cardData = Resources.Load<CardDataBase>(assetResourcesPath);
