@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be642ea31c91864b85572d5ff304d6c, type: 3}
   m_Name: CardDB
   m_EditorClassIdentifier: 
+  cardTypeProcessingOrder:
+  - Skins
+  - Ships
+  - Locations
+  - DevilFruits
   sagas:
   - id: eb
     arcs:

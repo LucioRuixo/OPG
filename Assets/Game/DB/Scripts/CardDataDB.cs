@@ -4,15 +4,15 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-using LRCore.Utils;
 using LRCore.Utils.Extensions;
 using LRCore.Utils.IO;
 
 namespace OPG.Cards
 {
-    using OPGPaths = OPG.Utils.Paths;
+    using OPGPaths = Utils.Paths;
     using LRPaths = LRCore.Utils.Paths;
     using ArcRanges = SortedDictionary<uint, string>;
+    using CardDB = Dictionary<int, string>;
 
     [CreateAssetMenu(fileName = "CardDB", menuName = "OPG/Card DB")]
     public class CardDataDB : ScriptableObject
@@ -41,16 +41,12 @@ namespace OPG.Cards
         }
         #endregion
 
-        private readonly string dataBasePath = $"{LRPaths.projectFolder}/CardDB";
-        private readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
+        private static readonly string dbFolderPath = $"{LRPaths.projectFolder}/CardDB";
+        private static readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
 
-        [SerializeField] private string[] cardTypeProcessingOrder = new string[]
-        {
-            "Skins",
-            "Ships",
-            "Locations",
-            "DevilFruits"
-        };
+        public static readonly string cardDBPath = $"{dbFolderPath}/cardDB.json";
+
+        [SerializeField] private string[] cardTypeProcessingOrder;
 
         [SerializeField] private List<SagaData> sagas;
 
@@ -58,20 +54,23 @@ namespace OPG.Cards
         public void Serialize()
         {
             ArcRanges arcRanges = new ArcRanges();
+            CardDB cardDB = new CardDB();
 
-            foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges);
+            foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges, ref cardDB);
 
             string arcRangesFile = $"{RangesFileName}{Extension.ValidExts[ExtTypes.JSON].Ext}";
-            string arcRangesPath = $"{dataBasePath}/{arcRangesFile}";
+            string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
             Serializer.Serialize(arcRangesPath, arcRanges);
+
+            Serializer.Serialize(cardDBPath, cardDB);
         }
 
-        private void ProcessSaga(SagaData saga, ref ArcRanges arcRanges)
+        private void ProcessSaga(SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
         {
-            foreach (ArcData arc in saga.Arcs) ProcessArc(arc, saga, ref arcRanges);
+            foreach (ArcData arc in saga.Arcs) ProcessArc(arc, saga, ref arcRanges, ref cardDB);
         }
 
-        private void ProcessArc(ArcData arc, SagaData saga, ref ArcRanges arcRanges)
+        private void ProcessArc(ArcData arc, SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
         {
             string arcPath = $"{cardAssetsPath}/{saga.ID}/{arc.ID}/";
 
@@ -80,18 +79,18 @@ namespace OPG.Cards
             string[] arcFolders = Directory.GetDirectories(arcPath, "*", SearchOption.TopDirectoryOnly);
 
             List<string> arcCards = new List<string>();
-            foreach (string cardType in cardTypeProcessingOrder) ProcessCardType(cardType, arcFolders, ref arcCards);
+            foreach (string cardType in cardTypeProcessingOrder) ProcessCardType(cardType, arcFolders, ref arcCards, ref cardDB);
 
             if (arcCards.Count == 0) return;
 
             string arcCardsFile = $"{saga.ID}_{arc.ID}{Extension.ValidExts[ExtTypes.JSON].Ext}";
-            string arcCardsPath = $"{dataBasePath}/{arcCardsFile}";
+            string arcCardsPath = $"{dbFolderPath}/{arcCardsFile}";
             Serializer.Serialize(arcCardsPath, arcCards);
 
             arcRanges.Add((uint)arcCards.Count - 1, arcCardsPath);
         }
 
-        private void ProcessCardType(string cardType, string[] arcFolders, ref List<string> arcCards)
+        private void ProcessCardType(string cardType, string[] arcFolders, ref List<string> arcCards, ref CardDB cardDB)
         {
             string folderPath = arcFolders.FirstOrDefault((folder) => folder.EndsWith($"/{cardType}"));
             if (string.IsNullOrEmpty(folderPath)) return;
@@ -99,11 +98,11 @@ namespace OPG.Cards
             string[] assetPaths = Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly).
                 Where((path) => Path.GetExtension(path) == ".asset").ToArray();
 
-            if (folderPath.EndsWith($"/{SkinsAssetFolderName}")) foreach (string assetPath in assetPaths) ProcessCollection(assetPath, ref arcCards);
-            else foreach (string assetPath in assetPaths) ProcessCard(assetPath, ref arcCards);
+            if (folderPath.EndsWith($"/{SkinsAssetFolderName}")) foreach (string assetPath in assetPaths) ProcessCollection(assetPath, ref arcCards, ref cardDB);
+            else foreach (string assetPath in assetPaths) ProcessCard(assetPath, ref arcCards, ref cardDB);
         }
 
-        private void ProcessCollection(string collectionAssetPath, ref List<string> arcCards)
+        private void ProcessCollection(string collectionAssetPath, ref List<string> arcCards, ref CardDB cardDB)
         {
             string assetResourcesPath = collectionAssetPath.Replace($"{OPGPaths.resourcesFolder}/", "");
             assetResourcesPath = assetResourcesPath.Replace(".asset", "");
@@ -117,10 +116,10 @@ namespace OPG.Cards
             string[] cardAssetPaths = Directory.GetFiles(collectionFolderPath, "*", SearchOption.TopDirectoryOnly).
                 Where((path) => Path.GetExtension(path) == ".asset").ToArray();
 
-            foreach (string cardAssetPath in cardAssetPaths) ProcessCard(cardAssetPath, ref arcCards, collection);
+            foreach (string cardAssetPath in cardAssetPaths) ProcessCard(cardAssetPath, ref arcCards, ref cardDB, collection);
         }
 
-        private void ProcessCard(string assetPath, ref List<string> arcCards, Collection collection = null)
+        private void ProcessCard(string assetPath, ref List<string> arcCards, ref CardDB cardDB, Collection collection = null)
         {
             string assetResourcesPath = assetPath.Replace($"{OPGPaths.resourcesFolder}/", "");
             assetResourcesPath = assetResourcesPath.Replace(".asset", "");
@@ -130,6 +129,9 @@ namespace OPG.Cards
             {
                 if (collection) cardData.Collection = collection;
                 arcCards.Add(assetPath);
+
+                //Debug
+                cardDB.Add(cardData.GetHashCode(), assetResourcesPath);
             }
         }
         #endregion
