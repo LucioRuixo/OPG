@@ -4,6 +4,7 @@ using UnityEngine;
 namespace OPG.Editor
 {
     using Cards;
+    using Gacha;
 
     using Editor = UnityEditor.Editor;
 
@@ -42,7 +43,7 @@ namespace OPG.Editor
 
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Random")) LoadEntity($"Characters/{characters[Random.Range(0, characters.Length)]}");
+            if (GUILayout.Button("Roll")) LoadEntity(Gacha.Roll());
         }
 
         private void LoadEntity() => ((Card)target).LoadCardData();
@@ -50,6 +51,8 @@ namespace OPG.Editor
         // Debug
         // ----------
         private void LoadEntity(string cardDataPath) => ((Card)target).LoadCardData(cardDataPath);
+
+        private void LoadEntity(CardDataBase cardData) => ((Card)target).SetCard(cardData);
         // ----------
     }
 }

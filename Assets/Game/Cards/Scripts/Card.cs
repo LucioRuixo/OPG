@@ -4,9 +4,10 @@ namespace OPG.Cards
 {
     public class Card : MonoBehaviour
     {
-        private const string CardDataBasePath = "DB/Cards";
-
+        // Debug
+        // ----------
         [SerializeField] private string cardDataPath;
+        // ----------
 
         private CardDataBase cardData;
         private GameObject formatObject;
@@ -17,17 +18,21 @@ namespace OPG.Cards
             if (format) formatObject ??= format.gameObject;
         }
 
-        public void LoadCardData()
+        public void LoadCardData(string cardDataPath)
         {
-            string path = $"{CardDataBasePath}/{cardDataPath}";
-            cardData = Resources.Load<CardDataBase>(path);
+            cardData = Resources.Load<CardDataBase>(cardDataPath);
 
             if (!cardData)
             {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{path}\"");
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
                 return;
             }
 
+            SetCard(cardData);
+        }
+
+        public void SetCard(CardDataBase cardData)
+        {
             if (formatObject)
             {
                 if (Application.isEditor) DestroyImmediate(formatObject);
@@ -49,14 +54,13 @@ namespace OPG.Cards
 
         // Debug
         // ----------
-        public void LoadCardData(string cardDataPath)
+        public void LoadCardData()
         {
-            string path = $"{CardDataBasePath}/{cardDataPath}";
-            cardData = Resources.Load<CardDataBase>(path);
+            cardData = Resources.Load<CardDataBase>(cardDataPath);
 
             if (!cardData)
             {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{path}\"");
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
                 return;
             }
 
