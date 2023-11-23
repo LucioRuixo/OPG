@@ -8,7 +8,7 @@ namespace OPG.Gacha
 {
     using Cards;
 
-    using CardDB = Dictionary<int, string>;
+    using CardDB = SortedDictionary<int, string>;
 
     public static class Gacha
     {
