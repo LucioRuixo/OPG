@@ -4,7 +4,11 @@ namespace OPG.Cards
 {
     public abstract class CardDataBase : ScriptableObject
     {
-        public Collection Collection { get; set; }
+        [SerializeField, HideInInspector] private int id = -1;
+        public int ID { get => id; set => id = value; }
+
+        [SerializeField, HideInInspector] private Collection collection;
+        public Collection Collection { get => collection; set => collection = value; }
 
         public abstract GameObject LoadFormat(Transform target);
 

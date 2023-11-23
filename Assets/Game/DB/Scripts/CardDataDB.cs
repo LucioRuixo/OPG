@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 using LRCore.Utils.Extensions;
@@ -12,14 +13,13 @@ namespace OPG.Cards
     using OPGPaths = Utils.Paths;
     using LRPaths = LRCore.Utils.Paths;
     using ArcRanges = SortedDictionary<uint, string>;
-    using CardDB = Dictionary<int, string>;
+    using CardDB = SortedDictionary<int, string>;
 
     [CreateAssetMenu(fileName = "CardDB", menuName = "OPG/Card DB")]
     public class CardDataDB : ScriptableObject
     {
         #region Constants
         private const string SkinsAssetFolderName = "Skins";
-        private const string RangesFileName = "ranges";
         #endregion
 
         #region Classes
@@ -44,7 +44,11 @@ namespace OPG.Cards
         private static readonly string dbFolderPath = $"{LRPaths.projectFolder}/CardDB";
         private static readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
 
-        public static readonly string cardDBPath = $"{dbFolderPath}/cardDB.json";
+        private static readonly string arcRangesFile = $"ranges{Extension.ValidExts[ExtTypes.JSON].Ext}";
+        private static readonly string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
+
+        private static readonly string cardDBFile = $"cardDB{Extension.ValidExts[ExtTypes.JSON].Ext}";
+        public static readonly string cardDBPath = $"{dbFolderPath}/{cardDBFile}";
 
         [SerializeField] private string[] cardTypeProcessingOrder;
 
@@ -58,11 +62,10 @@ namespace OPG.Cards
 
             foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges, ref cardDB);
 
-            string arcRangesFile = $"{RangesFileName}{Extension.ValidExts[ExtTypes.JSON].Ext}";
-            string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
             Serializer.Serialize(arcRangesPath, arcRanges);
-
             Serializer.Serialize(cardDBPath, cardDB);
+
+            AssetDatabase.SaveAssets();
         }
 
         private void ProcessSaga(SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
@@ -130,8 +133,15 @@ namespace OPG.Cards
                 if (collection) cardData.Collection = collection;
                 arcCards.Add(assetPath);
 
-                //Debug
-                cardDB.Add(cardData.GetHashCode(), assetResourcesPath);
+                if (!cardDB.ContainsValue(assetResourcesPath))
+                {
+                    int cardID = cardDB.Count;
+
+                    cardData.ID = cardID;
+                    EditorUtility.SetDirty(cardData);
+
+                    cardDB.Add(cardID, assetResourcesPath);
+                }
             }
         }
         #endregion
