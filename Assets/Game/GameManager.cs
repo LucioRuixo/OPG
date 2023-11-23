@@ -6,6 +6,8 @@ namespace OPG
     {
         #region Constants
         private const string PlayerName = "Player";
+
+        public const uint BaseRoll = 10;
         #endregion
 
         private Player.Player player;
