@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d889ce6afb9f96c49b1e4b1fb2d85669, type: 3}
   m_Name: Luffy
   m_EditorClassIdentifier: 
+  id: 0
   collection: {fileID: 11400000, guid: 59c56e7c38b172d4e886b420f94e1817, type: 2}
   entity: {fileID: 11400000, guid: b929f77080a795d4b84474b058cfd586, type: 2}
   image: {fileID: 21300000, guid: 1bb29e6573a6e534e8da15e953009943, type: 3}

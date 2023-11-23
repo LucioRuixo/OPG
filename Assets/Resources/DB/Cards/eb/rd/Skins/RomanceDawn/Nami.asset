@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d889ce6afb9f96c49b1e4b1fb2d85669, type: 3}
   m_Name: Nami
   m_EditorClassIdentifier: 
+  id: 1
   collection: {fileID: 11400000, guid: 59c56e7c38b172d4e886b420f94e1817, type: 2}
   entity: {fileID: 11400000, guid: 9c42b66a0dddce240a9f6ef162dedf81, type: 2}
   image: {fileID: 21300000, guid: cd1122eac9272694ca58b096941f77f7, type: 3}
