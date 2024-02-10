@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace OPG.Cards
 {
+    /// <summary>
+    /// Card visual display.
+    /// </summary>
     public class Card : MonoBehaviour
     {
         // Debug
@@ -9,7 +12,13 @@ namespace OPG.Cards
         [SerializeField] private string cardDataPath;
         // ----------
 
+        /// <summary>
+        /// The asset containing the data to be displayed on the card.
+        /// </summary>
         private CardDataBase cardData;
+        /// <summary>
+        /// The object containing this card's body.
+        /// </summary>
         private GameObject formatObject;
 
         private void Awake()
@@ -18,6 +27,10 @@ namespace OPG.Cards
             if (format) formatObject ??= format.gameObject;
         }
 
+        /// <summary>
+        /// Loads the card's data asset.
+        /// </summary>
+        /// <param name="cardDataPath">Path where the asset will be loaded from.</param>
         public void LoadCardData(string cardDataPath)
         {
             cardData = Resources.Load<CardDataBase>(cardDataPath);
@@ -31,6 +44,10 @@ namespace OPG.Cards
             SetCard(cardData);
         }
 
+        /// <summary>
+        /// Set a card data asset's contents as the data to be displayed on the card.
+        /// </summary>
+        /// <param name="cardData">The card data asset.</param>
         public void SetCard(CardDataBase cardData)
         {
             if (formatObject)

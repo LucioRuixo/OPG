@@ -4,9 +4,15 @@ namespace OPG.Cards
 {
     using Entities;
 
+    /// <summary>
+    /// Skin card asset.
+    /// </summary>
     [CreateAssetMenu(fileName = "NewSkinCard", menuName = "OPG Cards/Cards/Skin")]
     public class SkinCard : CardData<Character, VerticalCardData>
     {
+        /// <summary>
+        /// Image of this card's character portraying the corresponding skin.
+        /// </summary>
         [SerializeField] private Sprite image;
 
         public override void DisplayFrontInfo(FrontFace frontFace)

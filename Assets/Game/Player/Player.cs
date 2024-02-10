@@ -8,6 +8,13 @@ namespace OPG.Player
     {
         public Inventory Inventory { get; private set; } = new Inventory();
 
+        private void Start()
+        {
+            Roll();
+
+            foreach (int cardID in Inventory.UnlockedCards.Keys) Debug.Log($"ID {cardID} - {Inventory.UnlockedCards[cardID].Copies + 1}");
+        }
+
         private void AddToInventory(int cardID) => Inventory.Add(cardID);
 
         public int[] Roll()
