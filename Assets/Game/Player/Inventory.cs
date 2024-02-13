@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OPG.Player
 {
-    using UnlockedCards = SortedDictionary<int, Inventory.CardState>;
+    using Cards = SortedDictionary<int, Inventory.CardState>;
 
     [Serializable]
     public class Inventory
@@ -22,14 +22,14 @@ namespace OPG.Player
         }
         #endregion
 
-        private UnlockedCards unlockedCards = new UnlockedCards();
+        private Cards cards = new Cards();
 
-        public UnlockedCards UnlockedCards => unlockedCards;
+        public Cards Cards => cards;
 
         public void Add(int cardCode)
         {
-            if (unlockedCards.ContainsKey(cardCode)) unlockedCards[cardCode].AddCopy();
-            else unlockedCards.Add(cardCode, new CardState());
+            if (cards.ContainsKey(cardCode)) cards[cardCode].AddCopy();
+            else cards.Add(cardCode, new CardState());
         }
     }
 }
