@@ -4,15 +4,20 @@ namespace OPG.Player
 {
     using Gacha;
 
+    [RequireComponent(typeof(PlayerController))]
     public class Player : MonoBehaviour
     {
+        private PlayerController playerController;
+
         public Inventory Inventory { get; private set; } = new Inventory();
+
+        private void Awake() => playerController = GetComponent<PlayerController>();
 
         private void Start()
         {
             Roll();
 
-            foreach (int cardID in Inventory.UnlockedCards.Keys) Debug.Log($"ID {cardID} - {Inventory.UnlockedCards[cardID].Copies + 1}");
+            foreach (int cardID in Inventory.Cards.Keys) Debug.Log($"ID {cardID} - {Inventory.Cards[cardID].Copies + 1}");
         }
 
         private void AddToInventory(int cardID) => Inventory.Add(cardID);
