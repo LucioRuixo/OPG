@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace OPG.Entities
@@ -7,6 +8,7 @@ namespace OPG.Entities
     /// <summary>
     /// Generic type of all card contents.
     /// </summary>
+    [Serializable]
     public abstract class Entity : ScriptableObject, INameable
     {
         /// <summary>

@@ -4,17 +4,20 @@ namespace OPG.Player
 {
     using Gacha;
     using Input;
+    using Progression;
 
     public class Player : MonoBehaviour
     {
         [SerializeField] private MainInputContext inputContext;
+        [SerializeField] private ProgressionProfile progressionProfile;
 
         public Inventory Inventory { get; private set; } = new Inventory();
 
         #region Initialization
-        public void Initialize(MainInputContext inputContext)
+        public void Initialize(MainInputContext inputContext, ProgressionProfile progressionProfile)
         {
             this.inputContext = inputContext;
+            this.progressionProfile = progressionProfile;
 
             SubscribeToInputActions();
         }
