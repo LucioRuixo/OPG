@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace OPG
 {
+    using Input;
+
     public class GameManager : MonoBehaviour
     {
         #region Constants
@@ -9,6 +11,8 @@ namespace OPG
 
         public const uint BaseRoll = 10;
         #endregion
+
+        [SerializeField] private MainInputContext mainInputContext;
 
         private Player.Player player;
 
@@ -18,6 +22,7 @@ namespace OPG
         {
             player = new GameObject(PlayerName).AddComponent<Player.Player>();
             player.transform.parent = transform;
+            player.Initialize(mainInputContext);
         }
     }
 }

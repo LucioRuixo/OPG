@@ -3,26 +3,28 @@ using UnityEngine;
 namespace OPG.Player
 {
     using Gacha;
+    using Input;
 
-    [RequireComponent(typeof(PlayerController))]
     public class Player : MonoBehaviour
     {
-        private PlayerController playerController;
+        [SerializeField] private MainInputContext inputContext;
 
         public Inventory Inventory { get; private set; } = new Inventory();
 
-        private void Awake() => playerController = GetComponent<PlayerController>();
-
-        private void Start()
+        #region Initialization
+        public void Initialize(MainInputContext inputContext)
         {
-            Roll();
+            this.inputContext = inputContext;
 
-            foreach (int cardID in Inventory.Cards.Keys) Debug.Log($"ID {cardID} - {Inventory.Cards[cardID].Copies + 1}");
+            SubscribeToInputActions();
         }
+
+        private void SubscribeToInputActions() => inputContext.SubscribeToAction(MainInputContext.Actions.Roll, Roll);
+        #endregion
 
         private void AddToInventory(int cardID) => Inventory.Add(cardID);
 
-        public int[] Roll()
+        public void Roll()
         {
             uint roll = GameManager.BaseRoll;
             int[] rolledIDs = new int[roll];
@@ -33,9 +35,9 @@ namespace OPG.Player
                 rolledIDs[i] = rolledID;
 
                 AddToInventory(rolledID);
-            }
 
-            return rolledIDs;
+                LRCore.Logger.Log(this, rolledID.ToString());
+            }
         }
     }
 }
