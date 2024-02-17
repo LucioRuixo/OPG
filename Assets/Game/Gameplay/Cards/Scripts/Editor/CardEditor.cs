@@ -43,7 +43,11 @@ namespace OPG.Editor
 
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Roll")) LoadEntity(Gacha.Roll());
+            if (GUILayout.Button("Roll"))
+            {
+                ProgressionProfiles.ProgressionProfile profile = ProgressionProfiles.ProgressionProfiles.LoadProgressionProfile();
+                LoadEntity(Gacha.Roll(1, ref profile)[0]);
+            }
         }
 
         private void LoadEntity() => ((Card)target).LoadCardData();

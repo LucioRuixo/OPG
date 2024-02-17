@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OPG.Editor
 {
-    using Cards;
+    using DB;
 
     using Editor = UnityEditor.Editor;
 

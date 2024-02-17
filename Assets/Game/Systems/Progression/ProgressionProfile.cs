@@ -7,7 +7,7 @@ namespace OPG.ProgressionProfiles
 
     public class ProgressionProfile : ScriptableObject
     {
-        private List<int> cardUnlocks = new List<int>();
-        private Dictionary<string, Entity> entitiesByID = new Dictionary<string, Entity>();
+        public List<int> CardUnlocks { get; private set; } = new List<int>();
+        public Dictionary<string, Entity> EntitiesByID { get; private set; } = new Dictionary<string, Entity>();
     }
 }

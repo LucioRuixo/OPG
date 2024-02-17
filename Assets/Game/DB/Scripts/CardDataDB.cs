@@ -8,8 +8,10 @@ using UnityEngine;
 using LRCore.Utils.Extensions;
 using LRCore.Utils.IO;
 
-namespace OPG.Cards
+namespace OPG.DB
 {
+    using Cards;
+
     using OPGPaths = Utils.Paths;
     using LRPaths = LRCore.Utils.Paths;
     using ArcRanges = SortedDictionary<uint, string>;
@@ -48,17 +50,19 @@ namespace OPG.Cards
         private static readonly string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
 
         private static readonly string cardDBFile = $"cardDB{Extension.ValidExts[ExtTypes.JSON].Ext}";
-        public static readonly string cardDBPath = $"{dbFolderPath}/{cardDBFile}";
+        private static readonly string cardDBPath = $"{dbFolderPath}/{cardDBFile}";
 
         [SerializeField] private string[] cardTypeProcessingOrder;
 
         [SerializeField] private List<SagaData> sagas;
 
+        private static CardDB cardDB = new CardDB();
+
         #region Serialization
         public void Serialize()
         {
             ArcRanges arcRanges = new ArcRanges();
-            CardDB cardDB = new CardDB();
+            cardDB = new CardDB();
 
             foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges, ref cardDB);
 
@@ -145,5 +149,7 @@ namespace OPG.Cards
             }
         }
         #endregion
+
+        public static CardDataBase Get(int id) => Resources.Load<CardDataBase>(cardDB.ElementAt(id).Value);
     }
 }

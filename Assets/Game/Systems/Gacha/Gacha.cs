@@ -1,33 +1,25 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
-using LRCore.Utils.IO;
 
 namespace OPG.Gacha
 {
     using Cards;
-
-    using CardDB = SortedDictionary<int, string>;
+    using DB;
+    using ProgressionProfiles;
 
     public static class Gacha
     {
-        private static CardDB cardDB;
-        private static CardDB CardDB
+		public static CardDataBase[] Roll(uint count, ref ProgressionProfile progressionProfile)
         {
-            get
+            CardDataBase[] rolledCards = new CardDataBase[count];
+
+            for (int i = 0; i < count; i++)
             {
-                cardDB ??= Serializer.Deserialize<CardDB>(CardDataDB.cardDBPath);
-                return cardDB;
+                int unlockedCardsCount = progressionProfile.CardUnlocks.Count;
+                int cardIndex = progressionProfile.CardUnlocks[Random.Range(0, unlockedCardsCount)];
+                rolledCards[i] = CardDataDB.Get(cardIndex);
             }
-        }
 
-		public static CardDataBase Roll()
-        {
-            int cardIndex = Random.Range(0, CardDB.Keys.Count);
-            string cardAssetPath = CardDB.ElementAt(cardIndex).Value;
-
-            return Resources.Load<CardDataBase>(cardAssetPath);
+            return rolledCards;
         }
     }
 }

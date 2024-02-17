@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace OPG.Player
 {
-    using Cards = SortedDictionary<int, Inventory.CardState>;
+    using Cards;
+
+    using Cards = SortedDictionary<Cards.CardDataBase, Inventory.CardState>;
 
     [Serializable]
     public class Inventory
@@ -26,10 +28,13 @@ namespace OPG.Player
 
         public Cards Cards => cards;
 
-        public void Add(int cardCode)
+        public void Add(CardDataBase[] newCards)
         {
-            if (cards.ContainsKey(cardCode)) cards[cardCode].AddCopy();
-            else cards.Add(cardCode, new CardState());
+            foreach (CardDataBase card in newCards)
+            {
+                if (cards.ContainsKey(card)) cards[card].AddCopy();
+                else cards.Add(card, new CardState());
+            }
         }
     }
 }

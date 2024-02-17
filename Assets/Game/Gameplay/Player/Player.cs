@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace OPG.Player
 {
+    using Cards;
     using Gacha;
     using Input;
     using ProgressionProfiles;
@@ -25,22 +26,8 @@ namespace OPG.Player
         private void SubscribeToInputActions() => inputContext.SubscribeToAction(MainInputContext.Actions.Roll, Roll);
         #endregion
 
-        private void AddToInventory(int cardID) => Inventory.Add(cardID);
+        private void AddToInventory(CardDataBase[] cards) => Inventory.Add(cards);
 
-        public void Roll()
-        {
-            uint roll = GameplayManager.BaseRoll;
-            int[] rolledIDs = new int[roll];
-
-            for (int i = 0; i < roll; i++)
-            {
-                int rolledID = Gacha.Roll().ID;
-                rolledIDs[i] = rolledID;
-
-                AddToInventory(rolledID);
-
-                LRCore.Logger.Log(this, rolledID.ToString());
-            }
-        }
+        public void Roll() => AddToInventory(Gacha.Roll(GameplayManager.BaseRoll, ref progressionProfile));
     }
 }
