@@ -4,7 +4,7 @@ namespace OPG.Player
 {
     using Gacha;
     using Input;
-    using Progression;
+    using ProgressionProfiles;
 
     public class Player : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace OPG.Player
 
         public void Roll()
         {
-            uint roll = GameManager.BaseRoll;
+            uint roll = GameplayManager.BaseRoll;
             int[] rolledIDs = new int[roll];
 
             for (int i = 0; i < roll; i++)
