@@ -2,14 +2,16 @@ using UnityEngine;
 
 namespace OPG.Entities
 {
+    using DB;
     using Utils;
 
     /// <summary>
     /// Character in One Piece's story.
     /// </summary>
     [CreateAssetMenu(fileName = "NewCharacter", menuName = "OPG Entities/Character")]
-    public class Character : Entity, ITitles, IDescriptions
+    public class Character : Entity, ITitles, IDescriptions, IDBItem<Character, Entity>
     {
+        #region Enumerators
         /// <summary>
         /// Elements possibly constituting an character's full name.
         /// </summary>
@@ -19,6 +21,9 @@ namespace OPG.Entities
             Surname,
             Alias
         }
+        #endregion
+
+        public override string FolderPath => "Characters";
 
         /// <summary>
         /// This character's surname (optional).
@@ -134,5 +139,7 @@ namespace OPG.Entities
 
             return fullName;
         }
+
+        public Entity Get(string id) => EntityDB.Get<Character>(id);
     }
 }

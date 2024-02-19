@@ -5,12 +5,16 @@ namespace OPG.Entities
 {
     using Utils;
 
+    using OPGPaths = Utils.Paths;
+
     /// <summary>
     /// Generic type of all card contents.
     /// </summary>
     [Serializable]
     public abstract class Entity : ScriptableObject, INameable
     {
+        public abstract string FolderPath { get; }
+
         /// <summary>
         /// Default text preceding this entity's listed display.
         /// </summary>
@@ -34,5 +38,7 @@ namespace OPG.Entities
         /// The default listed display of this entity's name.
         /// </summary>
         public string DefaultListedName => $"{ListedPrefix}: {DisplayName}";
+
+        public Entity() {}
     }
 }

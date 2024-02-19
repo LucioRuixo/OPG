@@ -5,7 +5,7 @@ namespace OPG.Player
 {
     using Cards;
 
-    using Cards = SortedDictionary<Cards.CardDataBase, Inventory.CardState>;
+    using Cards = Dictionary<Cards.CardDataBase, Inventory.CardState>;
 
     [Serializable]
     public class Inventory

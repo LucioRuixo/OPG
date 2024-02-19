@@ -56,7 +56,15 @@ namespace OPG.DB
 
         [SerializeField] private List<SagaData> sagas;
 
-        private static CardDB cardDB = new CardDB();
+        private CardDB cardDB;
+        private CardDB CardDB
+        {
+            get
+            {
+                cardDB ??= Serializer.Deserialize<CardDB>(cardDBPath);
+                return cardDB;
+            }
+        }
 
         #region Serialization
         public void Serialize()
@@ -150,6 +158,6 @@ namespace OPG.DB
         }
         #endregion
 
-        public static CardDataBase Get(int id) => Resources.Load<CardDataBase>(cardDB.ElementAt(id).Value);
+        public CardDataBase Get(int id) => Resources.Load<CardDataBase>(CardDB.ElementAt(id).Value);
     }
 }

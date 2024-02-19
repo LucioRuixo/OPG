@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace OPG.Cards
 {
+    using DB;
     using Entities;
 
     /// <summary>
@@ -14,6 +15,8 @@ namespace OPG.Cards
         /// Image of this card's character portraying the corresponding skin.
         /// </summary>
         [SerializeField] private Sprite image;
+
+        public override Entity GetEntity() => DBItemOperations<Character, Entity>.Get(EntityID);
 
         public override void DisplayFrontInfo(FrontFace frontFace)
         {

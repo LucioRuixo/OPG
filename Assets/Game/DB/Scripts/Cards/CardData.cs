@@ -13,6 +13,7 @@ namespace OPG.Cards
         /// The ID of the entity this card portrays.
         /// </summary>
         [SerializeField] protected string entityID;
+        public override string EntityID => entityID;
 
         /// <summary>
         /// The entity this card portrays.

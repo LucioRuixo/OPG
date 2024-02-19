@@ -5,6 +5,8 @@ namespace OPG.Entities
     [CreateAssetMenu(fileName = "NewDevilFruit", menuName = "OPG Entities/Devil Fruit")]
     public class DevilFruit : Entity
     {
+        public override string FolderPath => "DevilFruits";
+
         [SerializeField] private string englishName;
         public string EnglishName => englishName;
 
