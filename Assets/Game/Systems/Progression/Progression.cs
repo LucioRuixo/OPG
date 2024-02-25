@@ -15,10 +15,10 @@ namespace OPG.Progression
                 CardDataBase rolledCard = rolledCards[i];
                 string entityID = rolledCard.EntityID;
 
-                if (!progressionProfile.EntitiesByID.ContainsKey(entityID))
+                if (!progressionProfile.EntityInitialized(entityID))
                 {
                     Entity entity = rolledCard.GetEntity();
-                    progressionProfile.EntitiesByID.Add(entityID, entity);
+                    progressionProfile.InitializeEntity(entityID, entity);
                 }
             }
         }
