@@ -11,7 +11,8 @@ namespace OPG.DB
         public static Entity Get<Item>(string id) where Item : Entity, IDBItem<Item, Entity>, new()
         {
             string entityFolderPath = DBItemOperations<Item, Entity>.FolderPath;
-            string path = $"{entitiesResourcesFolder}/{entityFolderPath}";
+            string path = $"{entitiesResourcesFolder}/{entityFolderPath}/{id}";
+
             return Resources.Load<Item>(path);
         }
     }
