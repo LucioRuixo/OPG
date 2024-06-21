@@ -5,10 +5,8 @@ namespace OPG.Entities
 {
     using Utils;
 
-    using OPGPaths = Utils.Paths;
-
     /// <summary>
-    /// Generic type of all card contents.
+    /// Generic type for all entities.
     /// </summary>
     [Serializable]
     public abstract class Entity : ScriptableObject, INameable

@@ -31,6 +31,10 @@ namespace OPG.Gacha
 
             Progression.ProcessRoll(rolledCards, ref progressionProfile);
 
+            string debugString = "ROLL | ";
+            for (int i = 0; i < rolledCards.Length; i++) debugString += $"{rolledCards[i].EntityID}{(i < rolledCards.Length - 1 ? ", " : "")}";
+            Debug.Log(debugString);
+
             return rolledCards;
         }
     }
