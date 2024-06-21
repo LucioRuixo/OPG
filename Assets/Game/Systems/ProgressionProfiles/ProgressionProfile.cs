@@ -11,12 +11,12 @@ namespace OPG.ProgressionProfiles
         private List<int> cardUnlocks = new List<int>();
         public List<int> CardUnlocks => cardUnlocks.ToList();
 
-        private Dictionary<string, Entity> entitiesByID = new Dictionary<string, Entity>();
+        public Dictionary<string, Entity> EntitiesByID { get; private set; } = new Dictionary<string, Entity>();
 
         #region Entities
-        public bool EntityInitialized(string entityID) => entitiesByID.ContainsKey(entityID);
+        public bool IsEntityUnlocked(string entityID) => EntitiesByID.ContainsKey(entityID);
 
-        public void InitializeEntity(string entityID, Entity entity) => entitiesByID.Add(entityID, entity);
+        public void UnlockEntity(string entityID, Entity entity) => EntitiesByID.Add(entityID, entity);
         #endregion
 
         // Debug
