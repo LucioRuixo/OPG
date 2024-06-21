@@ -9,14 +9,14 @@ namespace OPG
         #region Constants
         private const string PlayerName = "Player";
 
-        public const uint BaseRoll = 10;
+        public const uint BaseRoll = 5;
         #endregion
 
         [SerializeField] private MainInputContext mainInputContext;
 
         private Player.Player player;
 
-        private void Awake() => InstantiatePlayer();
+        private void Start() => InstantiatePlayer();
 
         private void InstantiatePlayer()
         {
