@@ -11,11 +11,6 @@ namespace OPG.Cards
     public abstract class CardFormat : MonoBehaviour
     {
         /// <summary>
-        /// Base length of the largest side of the card, from which the remaining side will derive based on the card's aspect ratio.
-        /// </summary>
-        protected const float ReferenceSize = 1000.0f;
-
-        /// <summary>
         /// Horizontal to vertical ratio values of this card's sides.
         /// </summary>
         protected abstract Vector2Int cardAspectRatio { get; }
@@ -42,6 +37,11 @@ namespace OPG.Cards
         /// Asset containing this card's contents.
         /// </summary>
         public CardDataBase CardData { get; set; }
+
+        /// <summary>
+        /// Base length of the largest side of the card, from which the remaining side will derive based on the card's aspect ratio.
+        /// </summary>
+        public float ReferenceSize { get => AspectRatio.ReferenceSize; set => AspectRatio.ReferenceSize = value; }
 
         /// <summary>
         /// Aspect ratio component for this card's sides.

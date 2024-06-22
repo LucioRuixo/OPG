@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace OPG.UI
 {
-    public class Menu : MonoBehaviour
+    public class Menu : Screen
     {
         [SerializeField] protected GameObject display;
 

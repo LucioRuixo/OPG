@@ -12,20 +12,30 @@ namespace OPG.Cards
         [SerializeField] private string cardDataPath;
         // ----------
 
+        #region Constants
+        /// <summary>
+        /// Path inside Resources to the card's prefab.
+        /// </summary>
+        public const string PrefabPath = "Cards/Card";
+        #endregion
+
         /// <summary>
         /// The asset containing the data to be displayed on the card.
         /// </summary>
         private CardDataBase cardData;
         /// <summary>
+        /// This card's body.
+        /// </summary>
+        private CardFormat format;
+        /// <summary>
         /// The object containing this card's body.
         /// </summary>
-        private GameObject formatObject;
+        private GameObject formatGO;
 
-        private void Awake()
-        {
-            CardFormat format = GetComponentInChildren<CardFormat>();
-            if (format) formatObject ??= format.gameObject;
-        }
+        /// <summary>
+        /// Size of the card on the screen.
+        /// </summary>
+        public float Size { get => format.ReferenceSize; set => format.ReferenceSize = value; }
 
         /// <summary>
         /// Loads the card's data asset.
@@ -50,23 +60,24 @@ namespace OPG.Cards
         /// <param name="cardData">The card data asset.</param>
         public void SetCard(CardDataBase cardData)
         {
-            if (formatObject)
+            if (formatGO)
             {
-                if (Application.isEditor) DestroyImmediate(formatObject);
-                else Destroy(formatObject);
+                if (Application.isEditor) DestroyImmediate(formatGO);
+                else Destroy(formatGO);
 
-                formatObject = null;
+                formatGO = null;
+                format = null;
             }
 
-            formatObject = cardData.LoadFormat(transform);
+            formatGO = cardData.LoadFormat(transform);
 
-            if (!formatObject)
+            if (!formatGO)
             {
                 LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
                 return;
             }
 
-            formatObject.GetComponent<CardFormat>().CardData = cardData;
+            (format = formatGO.GetComponent<CardFormat>()).CardData = cardData;
         }
 
         // Debug
@@ -81,23 +92,23 @@ namespace OPG.Cards
                 return;
             }
 
-            if (formatObject)
+            if (formatGO)
             {
-                if (Application.isEditor) DestroyImmediate(formatObject);
-                else Destroy(formatObject);
+                if (Application.isEditor) DestroyImmediate(formatGO);
+                else Destroy(formatGO);
 
-                formatObject = null;
+                formatGO = null;
             }
 
-            formatObject = cardData.LoadFormat(transform);
+            formatGO = cardData.LoadFormat(transform);
 
-            if (!formatObject)
+            if (!formatGO)
             {
                 LRCore.Logger.LogError(this, "Entity could not be loaded: card format failed to load");
                 return;
             }
 
-            formatObject.GetComponent<CardFormat>().CardData = cardData;
+            format.CardData = cardData;
         }
         // ----------
     }

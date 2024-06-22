@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace OPG.Gacha
@@ -13,8 +14,10 @@ namespace OPG.Gacha
         private const string CardDBPath = "DB/CardDB";
         #endregion
 
-        private static CardDataDB cardDataDB;
-        private static CardDataDB CardDataDB => cardDataDB ??= Resources.Load<CardDataDB>(CardDBPath);
+        static private CardDataDB cardDataDB;
+        static private CardDataDB CardDataDB => cardDataDB ??= Resources.Load<CardDataDB>(CardDBPath);
+
+        static public event Action<CardDataBase[]> OnRollEvent;
 
         public static CardDataBase[] Roll(uint count, ref ProgressionProfile progressionProfile)
         {
@@ -25,15 +28,13 @@ namespace OPG.Gacha
             CardDataBase[] rolledCards = new CardDataBase[count];
             for (int i = 0; i < count; i++)
             {
-                int cardIndex = progressionProfile.CardUnlocks[Random.Range(0, unlockedCardsCount)];
+                int cardIndex = progressionProfile.CardUnlocks[UnityEngine.Random.Range(0, unlockedCardsCount)];
                 rolledCards[i] = CardDataDB.Get(cardIndex);
             }
 
             Progression.ProcessRoll(rolledCards, ref progressionProfile);
 
-            string debugString = "ROLL | ";
-            for (int i = 0; i < rolledCards.Length; i++) debugString += $"{rolledCards[i].EntityID}{(i < rolledCards.Length - 1 ? ", " : "")}";
-            Debug.Log(debugString);
+            OnRollEvent?.Invoke(rolledCards);
 
             return rolledCards;
         }
