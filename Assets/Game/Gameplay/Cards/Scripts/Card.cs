@@ -78,6 +78,8 @@ namespace OPG.Cards
             }
 
             (format = formatGO.GetComponent<CardFormat>()).CardData = cardData;
+
+            GetComponent<RectTransform>().sizeDelta = formatGO.GetComponent<RectTransform>().sizeDelta;
         }
 
         // Debug

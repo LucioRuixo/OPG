@@ -41,7 +41,6 @@ namespace OPG.UI
                 card.SetCard(rolledCard);
 
                 card.name = rolledCard.name;
-                card.GetComponent<RectTransform>().sizeDelta = card.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta;
                 card.transform.localScale = Vector3.one * CardDisplayScale;
 
                 displayedCards.Add(card.gameObject);
