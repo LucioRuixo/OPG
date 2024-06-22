@@ -20,19 +20,19 @@ namespace OPG.Cards
 
         public override void DisplayFrontInfo(FrontFace frontFace)
         {
-            frontFace.NameField.Text = entity.GetFullName();
+            frontFace.NameField.Text = _Entity.GetFullName();
             frontFace.NameField.CollectionText = Collection.Name;
-            frontFace.TitleField.Text = entity.SelectedTitle;
-            frontFace.DescriptionField.Text = entity.SelectedDescription;
+            frontFace.TitleField.Text = _Entity.SelectedTitle;
+            frontFace.DescriptionField.Text = _Entity.SelectedDescription;
 
             frontFace.ImageViewport.Image.sprite = image;
         }
 
         public override void DisplayBackInfo(BackFace backFace)
         {
-            backFace.InfoFields[0].Text = entity.Race.DefaultListedName;
-            backFace.InfoFields[1].Text = $"Origin: {entity.Origin.Name}";
-            backFace.InfoFields[2].Text = entity.DevilFruit.DefaultListedName;
+            backFace.InfoFields[0].Text = _Entity.Race.DefaultListedName;
+            backFace.InfoFields[1].Text = $"Origin: {_Entity.Origin.Name}";
+            backFace.InfoFields[2].Text = _Entity.DevilFruit.DefaultListedName;
         }
     }
 }

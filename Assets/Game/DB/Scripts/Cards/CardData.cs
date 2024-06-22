@@ -18,7 +18,7 @@ namespace OPG.Cards
         /// <summary>
         /// The entity this card portrays.
         /// </summary>
-        protected Entity entity;
+        protected Entity _Entity => (Entity)GenericEntity;
 
         public override GameObject LoadFormat(Transform target)
         {

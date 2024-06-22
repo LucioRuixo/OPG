@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace OPG.Cards
@@ -20,6 +19,9 @@ namespace OPG.Cards
         /// The ID of the entity this card portrays.
         /// </summary>
         public abstract string EntityID { get; }
+
+        private Entity genericEntity;
+        protected Entity GenericEntity => genericEntity ??= GetEntity();
 
         [SerializeField, HideInInspector] private Collection collection;
         /// <summary>
