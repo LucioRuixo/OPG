@@ -19,9 +19,6 @@ namespace OPG.UI
         /// </summary>
         private List<GameObject> displayedCards = new List<GameObject>();
 
-        private GameObject cardPrefab;
-        private GameObject CardPrefab => cardPrefab ??= Resources.Load<GameObject>(Card.PrefabPath);
-
         private void OnEnable() => Gacha.OnRollEvent += OnRoll;
 
         private void OnDisable() => Gacha.OnRollEvent -= OnRoll;
@@ -36,11 +33,7 @@ namespace OPG.UI
 
             foreach (CardDataBase rolledCard in rolledCards)
             {
-                Card card = Instantiate(CardPrefab, cardContainer).GetComponent<Card>();
-
-                card.SetCard(rolledCard);
-
-                card.name = rolledCard.name;
+                Card card = Card.InstantiateCard(cardContainer, rolledCard);
                 card.transform.localScale = Vector3.one * CardDisplayScale;
 
                 displayedCards.Add(card.gameObject);

@@ -14,9 +14,9 @@ namespace OPG.Cards
 
         #region Constants
         /// <summary>
-        /// Path inside Resources to the card's prefab.
+        /// Path to the card's prefab inside the Resources folder.
         /// </summary>
-        public const string PrefabPath = "Cards/Card";
+        private const string PrefabPath = "Cards/Card";
         #endregion
 
         /// <summary>
@@ -33,25 +33,26 @@ namespace OPG.Cards
         private GameObject formatGO;
 
         /// <summary>
+        /// Prefab of a card's body.
+        /// </summary>
+        private static GameObject cardPrefab;
+        private static GameObject CardPrefab => cardPrefab ??= Resources.Load<GameObject>(PrefabPath);
+
+        /// <summary>
         /// Size of the card on the screen.
         /// </summary>
         public float Size { get => format.ReferenceSize; set => format.ReferenceSize = value; }
 
-        /// <summary>
-        /// Loads the card's data asset.
-        /// </summary>
-        /// <param name="cardDataPath">Path where the asset will be loaded from.</param>
-        public void LoadCardData(string cardDataPath)
+        public static Card InstantiateCard(Transform parent, CardDataBase cardData = null)
         {
-            cardData = Resources.Load<CardDataBase>(cardDataPath);
-
-            if (!cardData)
+            Card card = Instantiate(CardPrefab, parent).GetComponent<Card>();
+            if (cardData)
             {
-                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
-                return;
+                card.SetCard(cardData);
+                card.name = cardData.name;
             }
 
-            SetCard(cardData);
+            return card;
         }
 
         /// <summary>
@@ -80,6 +81,23 @@ namespace OPG.Cards
             (format = formatGO.GetComponent<CardFormat>()).CardData = cardData;
 
             GetComponent<RectTransform>().sizeDelta = formatGO.GetComponent<RectTransform>().sizeDelta;
+        }
+
+        /// <summary>
+        /// Loads the card's data asset.
+        /// </summary>
+        /// <param name="cardDataPath">Path where the asset will be loaded from.</param>
+        public void LoadCardData(string cardDataPath)
+        {
+            cardData = Resources.Load<CardDataBase>(cardDataPath);
+
+            if (!cardData)
+            {
+                LRCore.Logger.LogError(this, $"Entity could not be loaded: entity failed to load from path \"{cardDataPath}\"");
+                return;
+            }
+
+            SetCard(cardData);
         }
 
         // Debug
