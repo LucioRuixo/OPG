@@ -10,12 +10,6 @@ namespace OPG.Cards
     public abstract class CardData<Entity, CardFormat> : CardDataBase where Entity : Entities.Entity where CardFormat : CardFormatData, new()
     {
         /// <summary>
-        /// The ID of the entity this card portrays.
-        /// </summary>
-        [SerializeField] protected string entityID;
-        public override string EntityID => entityID;
-
-        /// <summary>
         /// The entity this card portrays.
         /// </summary>
         protected Entity _Entity => (Entity)GenericEntity;

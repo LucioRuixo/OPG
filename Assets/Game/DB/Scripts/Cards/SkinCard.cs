@@ -16,6 +16,8 @@ namespace OPG.Cards
         /// </summary>
         [SerializeField] private Sprite image;
 
+        public sealed override CardTypes CardType => CardTypes.Skin;
+
         public override Entity GetEntity() => DBItemOperations<Character, Entity>.Get(EntityID);
 
         public override void DisplayFrontInfo(FrontFace frontFace)

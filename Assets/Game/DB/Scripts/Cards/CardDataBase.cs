@@ -4,6 +4,13 @@ namespace OPG.Cards
 {
     using Entities;
 
+    #region Enumerators
+    public enum CardTypes
+    {
+        Skin
+    }
+    #endregion
+
     /// <summary>
     /// Generic base class for card assets.
     /// </summary>
@@ -15,19 +22,31 @@ namespace OPG.Cards
         /// </summary>
         public int ID { get => id; set => id = value; }
 
+        private Entity genericEntity;
+        /// <summary>
+        /// The entity this card portrays as a generic Entity type.
+        /// </summary>
+        protected Entity GenericEntity => genericEntity ??= GetEntity();
+
         /// <summary>
         /// The ID of the entity this card portrays.
         /// </summary>
-        public abstract string EntityID { get; }
-
-        private Entity genericEntity;
-        protected Entity GenericEntity => genericEntity ??= GetEntity();
+        [SerializeField] protected string entityID;
+        /// <summary>
+        /// The ID of the entity this card portrays.
+        /// </summary>
+        public string EntityID => entityID;
 
         [SerializeField, HideInInspector] private Collection collection;
         /// <summary>
         /// The card collection containing this card.
         /// </summary>
         public Collection Collection { get => collection; set => collection = value; }
+
+        /// <summary>
+        /// The type of this card.
+        /// </summary>
+        public abstract CardTypes CardType { get; }
 
         /// <summary>
         /// Gets the portrayed entity from the Entity Data Base.
