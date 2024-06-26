@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OPG.Player
+namespace OPG.Gameplay
 {
     using Cards;
 

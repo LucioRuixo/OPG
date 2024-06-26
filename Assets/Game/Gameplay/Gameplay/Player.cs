@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace OPG.Player
+namespace OPG.Gameplay
 {
     using Cards;
     using Gacha;
@@ -14,10 +13,7 @@ namespace OPG.Player
         [SerializeField] private ProgressionProfile progressionProfile;
 
         public ProgressionProfile ProgressionProfile => progressionProfile;
-
         public Inventory Inventory { get; private set; } = new Inventory();
-
-        static public event Action<Player> OnInitializedEvent;
 
         #region Initialization
         public void Initialize(MainInputContext inputContext, ProgressionProfile progressionProfile)
@@ -26,8 +22,6 @@ namespace OPG.Player
             this.progressionProfile = progressionProfile;
 
             SubscribeToInputActions();
-
-            OnInitializedEvent?.Invoke(this);
         }
 
         private void SubscribeToInputActions() => inputContext.SubscribeToAction(MainInputContext.Actions.Roll, Roll);

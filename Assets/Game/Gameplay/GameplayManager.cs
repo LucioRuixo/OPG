@@ -1,8 +1,9 @@
 using UnityEngine;
 
-namespace OPG
+namespace OPG.Gameplay
 {
     using Input;
+    using UI;
 
     public class GameplayManager : MonoBehaviour
     {
@@ -12,15 +13,26 @@ namespace OPG
         public const uint BaseRoll = 5;
         #endregion
 
+        [Header("UI")]
+        [SerializeField] private UIManager uiManager;
+
+        [Header("Input")]
         [SerializeField] private MainInputContext mainInputContext;
 
-        private Player.Player player;
+        private Player player;
 
-        private void Start() => InstantiatePlayer();
+        private void Start() => Initialize();
+
+        private void Initialize()
+        {
+            InstantiatePlayer();
+
+            uiManager.Initialize(player);
+        }
 
         private void InstantiatePlayer()
         {
-            player = new GameObject(PlayerName).AddComponent<Player.Player>();
+            player = new GameObject(PlayerName).AddComponent<Player>();
             player.transform.parent = transform;
 
             player.Initialize(mainInputContext, ProgressionProfiles.ProgressionProfiles.LoadProgressionProfile());
