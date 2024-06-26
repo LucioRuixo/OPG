@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace OPG.Cards
 {
-    using Utils;
+    using Utils.UI;
 
     [RequireComponent(typeof(AspectRatio))]
     public class CardImageViewport : MonoBehaviour

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace OPG.Utils
+namespace OPG.Utils.UI
 {
     [ExecuteAlways]
     public class AspectRatio : MonoBehaviour

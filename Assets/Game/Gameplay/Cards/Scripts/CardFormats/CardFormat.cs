@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace OPG.Cards
 {
-    using Utils;
+    using Utils.UI;
 
     /// <summary>
     /// Base class for cards' bodies.
