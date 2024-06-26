@@ -19,5 +19,7 @@ namespace OPG.Entities
             $"{(string.IsNullOrEmpty(Model) ? "" : $", Model: {Model}")}";
 
         protected override string ListedPrefix => "Devil fruit";
+
+        public override EntityTypes EntityType => EntityTypes.DevilFruit;
     }
 }

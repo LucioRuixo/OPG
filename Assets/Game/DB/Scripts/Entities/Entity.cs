@@ -5,11 +5,23 @@ namespace OPG.Entities
 {
     using Utils;
 
+    #region Enumerators
+    [Serializable]
+    public enum EntityTypes
+    {
+        Character,
+        Location,
+        Race,
+        Ship,
+        DevilFruit
+    }
+    #endregion
+
     /// <summary>
     /// Generic type for all entities.
     /// </summary>
     [Serializable]
-    public abstract class Entity : ScriptableObject, INameable
+    public abstract class Entity : ScriptableObject, INameable, IComparable<Entity>
     {
         public abstract string FolderPath { get; }
 
@@ -37,6 +49,12 @@ namespace OPG.Entities
         /// </summary>
         public string DefaultListedName => $"{ListedPrefix}: {DisplayName}";
 
+        public abstract EntityTypes EntityType { get; }
+
         public Entity() {}
+
+        #region IComparable
+        public int CompareTo(Entity other) => string.Compare(DisplayName, other.DisplayName);
+        #endregion
     }
 }

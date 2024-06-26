@@ -8,5 +8,7 @@ namespace OPG.Entities
         public override string FolderPath => "Races";
 
         protected override string ListedPrefix => "Race";
+
+        public override EntityTypes EntityType => EntityTypes.Race;
     }
 }

@@ -107,6 +107,8 @@ namespace OPG.Entities
 
         protected override string ListedPrefix => "Character";
 
+        public override EntityTypes EntityType => EntityTypes.Character;
+
         /// <summary>
         /// Processes this character's full name.
         /// </summary>

@@ -14,5 +14,7 @@ namespace OPG.Entities
         public string SelectedTitle => Titles.Length == 0 ? "" : Titles[0];
 
         protected override string ListedPrefix => "Ship";
+
+        public override EntityTypes EntityType => EntityTypes.Ship;
     }
 }
