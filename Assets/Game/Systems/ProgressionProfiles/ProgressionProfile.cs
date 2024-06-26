@@ -17,6 +17,10 @@ namespace OPG.ProgressionProfiles
         public bool IsEntityUnlocked(string entityID) => EntitiesByID.ContainsKey(entityID);
 
         public void UnlockEntity(string entityID, Entity entity) => EntitiesByID.Add(entityID, entity);
+
+        public Entity[] UnlockedEntitiesOfType(EntityTypes entityType) => EntitiesByID.Values.Where(entity => entity.EntityType == entityType).ToArray();
+
+        public List<Entity> UnlockedEntitiesOfType_List(EntityTypes entityType) => EntitiesByID.Values.Where(entity => entity.EntityType == entityType).ToList();
         #endregion
 
         // Debug
