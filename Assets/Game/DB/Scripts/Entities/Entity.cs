@@ -25,6 +25,8 @@ namespace OPG.Entities
     {
         public abstract string FolderPath { get; }
 
+        public string ID => base.name;
+
         /// <summary>
         /// Default text preceding this entity's listed display.
         /// </summary>

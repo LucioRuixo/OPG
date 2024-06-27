@@ -4,26 +4,48 @@ using UnityEngine;
 
 namespace OPG.ProgressionProfiles
 {
+    using Cards;
     using Entities;
 
     public class ProgressionProfile : ScriptableObject
     {
-        private List<int> cardUnlocks = new List<int>();
-        public List<int> CardUnlocks => cardUnlocks.ToList();
+        private List<int> unlockedCards = new List<int>();
+        public List<int> UnlockedCards => unlockedCards.ToList();
 
-        public Dictionary<string, Entity> EntitiesByID { get; private set; } = new Dictionary<string, Entity>();
+        private List<int> rolledCards = new List<int>();
+
+        public Dictionary<string, EntityProgression> EntityProgressionsByID { get; private set; } = new Dictionary<string, EntityProgression>();
+
+        #region Cards
+        public bool WasCardRolled(int cardID) => rolledCards.Contains(cardID);
+
+        public void RegisterRolledCard(CardDataBase card)
+        {
+            string entityID = card.GetEntity().ID;
+
+            if (!EntityProgressionsByID.ContainsKey(entityID))
+            {
+                LRCore.Logger.LogError(this, "Could not register rolled card: this card's entity has not been unlocked. Rolled cards' entities must be processed BEFORE the card.");
+                return;
+            }
+
+            EntityProgressionsByID[entityID].AddImage(card.Image);
+
+            rolledCards.Add(card.ID);
+        }
+        #endregion
 
         #region Entities
-        public bool IsEntityUnlocked(string entityID) => EntitiesByID.ContainsKey(entityID);
+        public bool IsEntityUnlocked(string entityID) => EntityProgressionsByID.ContainsKey(entityID);
 
-        public void UnlockEntity(string entityID, Entity entity) => EntitiesByID.Add(entityID, entity);
+        public void UnlockEntity(string entityID, Entity entity) => EntityProgressionsByID.Add(entityID, new EntityProgression(entity));
 
-        public Entity[] UnlockedEntitiesOfType(EntityTypes entityType) => EntitiesByID.Values.Where(entity => entity.EntityType == entityType).ToArray();
-
-        public List<Entity> UnlockedEntitiesOfType_List(EntityTypes entityType) => EntitiesByID.Values.Where(entity => entity.EntityType == entityType).ToList();
+        public List<Entity> UnlockedEntitiesOfType(EntityTypes entityType) => EntityProgressionsByID.Values.Select(entityProgression => entityProgression.Entity).Where(entity => entity.EntityType == entityType).ToList();
         #endregion
 
         // Debug
-        private void Awake() => cardUnlocks = new List<int>() { 0, 1, 2, 3, 4 };
+        private void Awake() => unlockedCards = new List<int>() { 0, 1, 2, 3, 4 };
+
+        public void ResetRolledCards() => rolledCards = new List<int>();
     }
 }

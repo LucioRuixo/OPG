@@ -21,6 +21,8 @@ namespace OPG.Gameplay
             this.inputContext = inputContext;
             this.progressionProfile = progressionProfile;
 
+            progressionProfile.ResetRolledCards(); // Debug
+
             SubscribeToInputActions();
         }
 

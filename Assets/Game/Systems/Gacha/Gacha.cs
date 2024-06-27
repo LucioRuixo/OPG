@@ -21,14 +21,14 @@ namespace OPG.Gacha
 
         public static CardDataBase[] Roll(uint count, ref ProgressionProfile progressionProfile)
         {
-            int unlockedCardsCount = progressionProfile.CardUnlocks.Count;
+            int unlockedCardsCount = progressionProfile.UnlockedCards.Count;
             
             if (unlockedCardsCount == 0) return null;
 
             CardDataBase[] rolledCards = new CardDataBase[count];
             for (int i = 0; i < count; i++)
             {
-                int cardIndex = progressionProfile.CardUnlocks[UnityEngine.Random.Range(0, unlockedCardsCount)];
+                int cardIndex = progressionProfile.UnlockedCards[UnityEngine.Random.Range(0, unlockedCardsCount)];
                 rolledCards[i] = CardDataDB.Get(cardIndex);
             }
 
