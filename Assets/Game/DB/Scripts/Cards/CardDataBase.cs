@@ -49,6 +49,15 @@ namespace OPG.Cards
         public abstract CardTypes CardType { get; }
 
         /// <summary>
+        /// Image of this card's character portraying the corresponding skin.
+        /// </summary>
+        [SerializeField] private Sprite image;
+        /// <summary>
+        /// Image of this card's character portraying the corresponding skin.
+        /// </summary>
+        public Sprite Image => image;
+
+        /// <summary>
         /// Gets the portrayed entity from the Entity Data Base.
         /// </summary>
         /// <returns>The portrayed entity as an Entity.</returns>

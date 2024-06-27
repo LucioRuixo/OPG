@@ -11,11 +11,6 @@ namespace OPG.Cards
     [CreateAssetMenu(fileName = "NewSkinCard", menuName = "OPG Cards/Cards/Skin")]
     public class SkinCard : CardData<Character, VerticalCardData>
     {
-        /// <summary>
-        /// Image of this card's character portraying the corresponding skin.
-        /// </summary>
-        [SerializeField] private Sprite image;
-
         public sealed override CardTypes CardType => CardTypes.Skin;
 
         public override Entity GetEntity() => DBItemOperations<Character, Entity>.Get(EntityID);
