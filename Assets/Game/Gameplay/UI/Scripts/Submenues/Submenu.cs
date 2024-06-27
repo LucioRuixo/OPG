@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace OPG.UI
@@ -7,8 +8,19 @@ namespace OPG.UI
         [SerializeField] private RectTransform buttonContainer;
         public RectTransform ButtonContainer => buttonContainer;
 
-        public void Open() => gameObject.SetActive(true);
+        public event Action OnOpenEvent;
+        public event Action OnClosedEvent;
 
-        public void Close() => gameObject.SetActive(false);
+        public void Open()
+        {
+            gameObject.SetActive(true);
+            OnOpenEvent?.Invoke();
+        }
+
+        public void Close()
+        {
+            gameObject.SetActive(false);
+            OnClosedEvent?.Invoke();
+        }
     }
 }

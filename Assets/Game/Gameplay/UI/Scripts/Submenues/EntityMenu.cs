@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine;
 
 namespace OPG.UI
 {
@@ -9,18 +9,22 @@ namespace OPG.UI
 
     public class EntityMenu : Submenu
     {
+        [SerializeField] private EntityViewer entityViewer;
+
         private ProgressionProfile progressionProfile;
 
         public void Initialize(ProgressionProfile progressionProfile) => this.progressionProfile = progressionProfile;
 
 		public void Open(EntityTypes entityType)
         {
-            List<Entity> entitiesOfType = progressionProfile.UnlockedEntitiesOfType_List(entityType);
+            List<Entity> entitiesOfType = progressionProfile.UnlockedEntitiesOfType(entityType);
             entitiesOfType.Sort();
             for (int i = 0; i < entitiesOfType.Count; i++)
             {
-                TextMeshProUGUI newEntity = Instantiate(UIUtils.GetMenuButtonPrefab(), ButtonContainer).transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                newEntity.text = entitiesOfType[i].DisplayName;
+                Entity entity = entitiesOfType[i];
+
+                EntityMenuButton button = Instantiate(UIUtils.GetMenuButtonPrefab(), ButtonContainer).AddComponent<EntityMenuButton>();
+                button.Initialize(entity.DisplayName, entity, entityViewer);
             }
 
             Open();

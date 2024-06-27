@@ -14,22 +14,18 @@ namespace OPG.UI
         [Header("Submenues")]
         [SerializeField] private Submenu entityTypeMenu;
         [SerializeField] private EntityMenu entityMenu;
+        [SerializeField] private EntityViewer entityViewer;
 
-        private ProgressionProfile progressionProfile;
-
-        public void Initialize(ProgressionProfile progressionProfile) => entityMenu.Initialize(progressionProfile);
+        public void Initialize(ProgressionProfile progressionProfile)
+        {
+            entityMenu.Initialize(progressionProfile);
+            entityViewer.Initialize(progressionProfile);
+        }
 
         public void OpenEntityMenu(int entityTypeIndex)
         {
-            entityTypeMenu.Close();
-
             EntityTypes entityType = (EntityTypes)entityTypeIndex;
             entityMenu.Open(entityType);
-        }
-
-        public void OpenEntity(Entity entity)
-        {
-            
         }
     }
 }

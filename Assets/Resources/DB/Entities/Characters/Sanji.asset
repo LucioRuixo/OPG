@@ -16,7 +16,6 @@ MonoBehaviour:
   surname: 
   alias: 
   nameOrder: 00000000
-  image: {fileID: 21300000, guid: f705d84bd17589f489484dcb90552490, type: 3}
   race: {fileID: 11400000, guid: b35a7a4e0dcf21d4db0e7365ea388a4a, type: 2}
   origin: {fileID: 11400000, guid: 33b287a7a7681e7489b59701852e93b8, type: 2}
   devilFruit: {fileID: 11400000, guid: ef582646259970441ac8bc197307d902, type: 2}
