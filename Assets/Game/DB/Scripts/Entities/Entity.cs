@@ -51,7 +51,12 @@ namespace OPG.Entities
 
         public abstract EntityTypes EntityType { get; }
 
-        public Entity() {}
+        public Entity() { }
+
+        /// <summary>
+        /// Returns an array of formatted texts containing this entity's info.
+        /// </summary>
+        public abstract string[] GetInfoTexts();
 
         #region IComparable
         public int CompareTo(Entity other) => string.Compare(DisplayName, other.DisplayName);

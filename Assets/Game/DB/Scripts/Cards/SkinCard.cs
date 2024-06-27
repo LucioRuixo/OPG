@@ -22,14 +22,13 @@ namespace OPG.Cards
             frontFace.TitleField.Text = _Entity.SelectedTitle;
             frontFace.DescriptionField.Text = _Entity.SelectedDescription;
 
-            frontFace.ImageViewport.Image.sprite = image;
+            frontFace.ImageViewport.Image.sprite = Image;
         }
 
         public override void DisplayBackInfo(BackFace backFace)
         {
-            backFace.InfoFields[0].Text = _Entity.Race.DefaultListedName;
-            backFace.InfoFields[1].Text = $"Origin: {_Entity.Origin.Name}";
-            backFace.InfoFields[2].Text = _Entity.DevilFruit.DefaultListedName;
+            string[] infoTexts = GenericEntity.GetInfoTexts();
+            for (int i = 0; i < infoTexts.Length; i++) backFace.InfoFields[i].Text = infoTexts[i];
         }
     }
 }

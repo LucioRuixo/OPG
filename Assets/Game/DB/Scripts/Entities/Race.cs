@@ -10,5 +10,10 @@ namespace OPG.Entities
         protected override string ListedPrefix => "Race";
 
         public override EntityTypes EntityType => EntityTypes.Race;
+
+        public override string[] GetInfoTexts()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

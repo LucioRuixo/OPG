@@ -21,5 +21,10 @@ namespace OPG.Entities
         protected override string ListedPrefix => "Devil fruit";
 
         public override EntityTypes EntityType => EntityTypes.DevilFruit;
+
+        public override string[] GetInfoTexts()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

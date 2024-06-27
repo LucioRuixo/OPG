@@ -142,6 +142,13 @@ namespace OPG.Entities
             return fullName;
         }
 
+        public override string[] GetInfoTexts() => new string[]
+        {
+            Race.DefaultListedName,
+            $"Origin: {Origin.Name}",
+            DevilFruit.DefaultListedName
+        };
+
         public Entity Get(string id) => EntityDB.Get<Character>(id);
     }
 }

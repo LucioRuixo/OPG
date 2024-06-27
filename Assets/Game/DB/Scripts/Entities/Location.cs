@@ -10,5 +10,10 @@ namespace OPG.Entities
         protected override string ListedPrefix => "Location";
 
         public override EntityTypes EntityType => EntityTypes.Location;
+
+        public override string[] GetInfoTexts()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
