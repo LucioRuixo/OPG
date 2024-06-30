@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,17 +28,26 @@ namespace OPG.UI
 
         private ProgressionProfile progressionProfile;
 
+        private Entity lastEntity;
+
+        private List<TMP_Text> infoFields = new List<TMP_Text>();
+
         public void Initialize(ProgressionProfile progressionProfile) => this.progressionProfile = progressionProfile;
 
-        public void Open(Entity entity)
+        public void Open(Entity entity, Submenu source)
         {
-            Open();
+            lastEntity = entity;
 
-            imageField.sprite = progressionProfile.EntityProgressionsByID[entity.ID].MainImage;
+            Open(source);
+        }
 
-            nameField.text = entity.DisplayName;
+        public override void UpdateContent()
+        {
+            imageField.sprite = progressionProfile.EntityProgressionsByID[lastEntity.ID].MainImage;
 
-            IDescriptions descriptedEntity = (IDescriptions)entity;
+            nameField.text = lastEntity.DisplayName;
+
+            IDescriptions descriptedEntity = (IDescriptions)lastEntity;
             if (descriptedEntity != null)
             {
                 descriptionField.gameObject.SetActive(true);
@@ -45,12 +55,22 @@ namespace OPG.UI
             }
             else descriptionField.gameObject.SetActive(false);
 
-            string[] infoTexts = entity.GetInfoTexts();
+            InstantiateInfoFields();
+        }
+
+        private void InstantiateInfoFields()
+        {
+            foreach (TMP_Text infoField in infoFields) Destroy(infoField.gameObject);
+            infoFields.Clear();
+
+            string[] infoTexts = lastEntity.GetInfoTexts();
             for (int i = 0; i < infoTexts.Length; i++)
             {
                 TMP_Text infoField = Instantiate(UIUtils.GetMenuTextFieldPrefab(), infoFieldContainer).GetComponent<TMP_Text>();
                 infoField.text = infoTexts[i];
                 infoField.fontSize = InfoFontSize;
+
+                infoFields.Add(infoField);
             }
         }
     }

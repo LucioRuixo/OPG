@@ -7,17 +7,27 @@ namespace OPG.UI
         [SerializeField] protected GameObject viewport;
         [SerializeField] protected Submenu[] submenues;
 
+        private Submenu openSubmenu;
+
         private void Awake()
         {
             foreach (Submenu submenu in submenues) submenu.OnOpenEvent += () => CloseOtherSubmenues(submenu);
         }
 
-        public virtual void Open() => viewport.SetActive(true);
+        public virtual void Open()
+        {
+            if (openSubmenu) openSubmenu.UpdateContent();
+            else submenues[0]?.Open();
 
-        public virtual void Close() => viewport.SetActive(false);
+            gameObject.SetActive(true);
+        }
+
+        public virtual void Close() => gameObject.SetActive(false);
 
         private void CloseOtherSubmenues(Submenu openSubmenu)
         {
+            this.openSubmenu = openSubmenu;
+
             foreach (Submenu submenu in submenues)
             {
                 if (submenu == openSubmenu) continue;

@@ -25,7 +25,7 @@ namespace OPG.UI
         public void OpenEntityMenu(int entityTypeIndex)
         {
             EntityTypes entityType = (EntityTypes)entityTypeIndex;
-            entityMenu.Open(entityType);
+            entityMenu.Open(entityType, entityTypeMenu);
         }
     }
 }

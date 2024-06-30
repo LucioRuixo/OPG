@@ -8,9 +8,9 @@ namespace OPG.UI
 
     public class EntityMenuButton : MonoBehaviour
     {
-        public void Initialize(string text, Entity entity, EntityViewer entityViewer)
+        public void Initialize(string text, Entity entity, EntityViewer entityViewer, Submenu source)
         {
-            GetComponent<Button>().onClick.AddListener(() => entityViewer.Open(entity));
+            GetComponent<Button>().onClick.AddListener(() => entityViewer.Open(entity, source));
             GetComponentInChildren<TMP_Text>().text = text;
         }
     }
