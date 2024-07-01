@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,12 +10,26 @@ namespace OPG.ProgressionProfiles
 
     public class ProgressionProfile : ScriptableObject
     {
+        public int LoggedEpisodes { get; private set; } = 1;
+
         private List<int> unlockedCards = new List<int>();
         public List<int> UnlockedCards => unlockedCards.ToList();
 
         private List<int> rolledCards = new List<int>();
 
         public Dictionary<string, EntityProgression> EntityProgressionsByID { get; private set; } = new Dictionary<string, EntityProgression>();
+
+        public event Action<int> OnEpisodesLoggedEvent;
+
+        #region Episodes
+        public void LogEpisodes(int count)
+        {
+            LoggedEpisodes += count;
+            if (LoggedEpisodes < 1) LoggedEpisodes = 1;
+
+            OnEpisodesLoggedEvent?.Invoke(LoggedEpisodes);
+        }
+        #endregion
 
         #region Cards
         public bool WasCardRolled(int cardID) => rolledCards.Contains(cardID);

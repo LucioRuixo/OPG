@@ -15,6 +15,7 @@ namespace OPG.Gameplay
 
         [Header("UI")]
         [SerializeField] private UIManager uiManager;
+        [SerializeField] private EpisodeLogger episodeLogger;
 
         [Header("Input")]
         [SerializeField] private MainInputContext mainInputContext;
@@ -35,7 +36,7 @@ namespace OPG.Gameplay
             player = new GameObject(PlayerName).AddComponent<Player>();
             player.transform.parent = transform;
 
-            player.Initialize(mainInputContext, ProgressionProfiles.ProgressionProfiles.LoadProgressionProfile());
+            player.Initialize(mainInputContext, episodeLogger, ProgressionProfiles.ProgressionProfiles.LoadProgressionProfile());
         }
     }
 }

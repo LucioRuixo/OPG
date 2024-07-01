@@ -7,8 +7,13 @@ namespace OPG.UI
     public class UIManager : MonoBehaviour
     {
         [Header("Menues")]
+        [SerializeField] private EpisodeLogger episodeLogger;
         [SerializeField] private MainSidebar sidebar;
 
-        public void Initialize(Player player) => sidebar.Initialize(player);
+        public void Initialize(Player player)
+        {
+            episodeLogger.Initialize(player.ProgressionProfile);
+            sidebar.Initialize(player);
+        }
     }
 }

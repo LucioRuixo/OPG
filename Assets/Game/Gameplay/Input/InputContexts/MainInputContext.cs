@@ -4,7 +4,8 @@ namespace OPG.Input
     {
 		public enum Actions
         {
-            Roll
+            Roll,
+            LogEpisodes,
         }
     }
 }

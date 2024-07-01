@@ -14,6 +14,10 @@ namespace OPG.UI
 
         [SerializeField] private Transform cardContainer;
 
+        [Space]
+
+        [SerializeField] private EpisodeLogger episodeLogger;
+
         /// <summary>
         /// List of the currently displayed cards.
         /// </summary>
