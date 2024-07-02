@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d889ce6afb9f96c49b1e4b1fb2d85669, type: 3}
-  m_Name: Luffy
+  m_Name: Sanji
   m_EditorClassIdentifier: 
-  entityID: Luffy
-  unlockEpisode: 1
-  image: {fileID: 21300000, guid: 1bb29e6573a6e534e8da15e953009943, type: 3}
-  id: 0
-  collection: {fileID: 11400000, guid: 59c56e7c38b172d4e886b420f94e1817, type: 2}
+  entityID: Sanji
+  unlockEpisode: 20
+  image: {fileID: 21300000, guid: f705d84bd17589f489484dcb90552490, type: 3}
+  id: 4
+  collection: {fileID: 11400000, guid: 5601d667a5ff10d46854bed2ecc86d31, type: 2}

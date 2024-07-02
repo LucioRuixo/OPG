@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: RomanceDawn
   m_EditorClassIdentifier: 
   name: Romance Dawn
+  lastEpisode: 3
   saga: {fileID: 11400000, guid: 48e7ac152136cea488e39368c7b97886, type: 2}
