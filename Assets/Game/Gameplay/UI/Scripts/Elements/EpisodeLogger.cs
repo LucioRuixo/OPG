@@ -33,7 +33,7 @@ namespace OPG.UI
 
             this.progressionProfile.OnEpisodesLoggedEvent += UpdateCurrentEpisode;
 
-            this.progressionProfile.LogEpisodes(-999); // Debug
+            this.progressionProfile.LogEpisodes(-9999); // Debug
         }
 
         private void ProcessInput(string input)

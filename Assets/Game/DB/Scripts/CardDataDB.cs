@@ -14,13 +14,15 @@ namespace OPG.DB
 
     using OPGPaths = Utils.Paths;
     using LRPaths = LRCore.Utils.Paths;
-    using ArcRanges = SortedDictionary<uint, string>;
+    using ArcRanges = SortedDictionary<int, string>;
     using CardDB = SortedDictionary<int, string>;
 
     [CreateAssetMenu(fileName = "CardDB", menuName = "OPG/Card DB")]
     public class CardDataDB : ScriptableObject
     {
         #region Constants
+        private const string CardDBPath = "DB/CardDB";
+
         private const string SkinsAssetFolderName = "Skins";
         #endregion
 
@@ -40,6 +42,21 @@ namespace OPG.DB
         {
             [SerializeField] private string id;
             public string ID => id;
+
+            [SerializeField] private int lastEpisode;
+            public int LastEpisode => lastEpisode;
+
+            [SerializeField, HideInInspector] private int firstCardID = -1;
+            public int FirstCardID { get => firstCardID; private set => firstCardID = value; }
+
+            [SerializeField, HideInInspector] private int lastCardID = -1;
+            public int LastCardID { get => lastCardID; private set => lastCardID = value; }
+
+            public void SetCardIDRange(int first, int last)
+            {
+                FirstCardID = first;
+                LastCardID = last;
+            }
         }
         #endregion
 
@@ -55,9 +72,22 @@ namespace OPG.DB
         [SerializeField] private string[] cardTypeProcessingOrder;
 
         [SerializeField] private List<SagaData> sagas;
+        public List<SagaData> Sagas { get => sagas; private set => sagas = value; }
 
-        private CardDB cardDB;
-        private CardDB CardDB
+        private int arcsRange;
+
+        private static ArcRanges arcRanges;
+        private static ArcRanges ArcRanges
+        {
+            get
+            {
+                arcRanges ??= Serializer.Deserialize<CardDB>(arcRangesPath);
+                return arcRanges;
+            }
+        }
+
+        private static CardDB cardDB;
+        private static CardDB CardDB
         {
             get
             {
@@ -66,13 +96,22 @@ namespace OPG.DB
             }
         }
 
+        private static CardDataDB dbAsset;
+        private static CardDataDB DBAsset => dbAsset ??= Resources.Load<CardDataDB>(CardDBPath);
+
         #region Serialization
         public void Serialize()
         {
+            arcsRange = -1;
             ArcRanges arcRanges = new ArcRanges();
+
             cardDB = new CardDB();
 
-            foreach (SagaData saga in sagas) ProcessSaga(saga, ref arcRanges, ref cardDB);
+            for (int i = 0; i < Sagas.Count; i++)
+            {
+                SagaData saga = Sagas[i];
+                ProcessSaga(ref saga, ref arcRanges, ref cardDB);
+            }
 
             Serializer.Serialize(arcRangesPath, arcRanges);
             Serializer.Serialize(cardDBPath, cardDB);
@@ -80,29 +119,44 @@ namespace OPG.DB
             AssetDatabase.SaveAssets();
         }
 
-        private void ProcessSaga(SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
+        private void ProcessSaga(ref SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
         {
-            foreach (ArcData arc in saga.Arcs) ProcessArc(arc, saga, ref arcRanges, ref cardDB);
+            for (int i = 0; i < saga.Arcs.Count; i++)
+            {
+                ArcData arc = saga.Arcs[i];
+                ProcessArc(ref arc, saga, ref arcRanges, ref cardDB);
+            }
         }
 
-        private void ProcessArc(ArcData arc, SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
+        private void ProcessArc(ref ArcData arc, SagaData saga, ref ArcRanges arcRanges, ref CardDB cardDB)
         {
             string arcPath = $"{cardAssetsPath}/{saga.ID}/{arc.ID}/";
 
-            if (!Directory.Exists(arcPath)) return;
+            if (!Directory.Exists(arcPath))
+            {
+                arc.SetCardIDRange(-1, -1);
+                return;
+            }
 
             string[] arcFolders = Directory.GetDirectories(arcPath, "*", SearchOption.TopDirectoryOnly);
 
             List<string> arcCards = new List<string>();
             foreach (string cardType in cardTypeProcessingOrder) ProcessCardType(cardType, arcFolders, ref arcCards, ref cardDB);
 
-            if (arcCards.Count == 0) return;
+            if (arcCards.Count == 0)
+            {
+                arc.SetCardIDRange(-1, -1);
+                return;
+            }
 
             string arcCardsFile = $"{saga.ID}_{arc.ID}{Extension.ValidExts[ExtTypes.JSON].Ext}";
             string arcCardsPath = $"{dbFolderPath}/{arcCardsFile}";
             Serializer.Serialize(arcCardsPath, arcCards);
 
-            arcRanges.Add((uint)arcCards.Count - 1, arcCardsPath);
+            arcRanges.Add(arcsRange + arcCards.Count, arcCardsPath);
+            arc.SetCardIDRange(arcsRange + 1, arcsRange + arcCards.Count);
+
+            arcsRange += arcCards.Count;
         }
 
         private void ProcessCardType(string cardType, string[] arcFolders, ref List<string> arcCards, ref CardDB cardDB)
@@ -158,6 +212,67 @@ namespace OPG.DB
         }
         #endregion
 
-        public CardDataBase Get(int id) => Resources.Load<CardDataBase>(CardDB.ElementAt(id).Value);
+        public static CardDataBase Get(int id) => Resources.Load<CardDataBase>(CardDB.ElementAt(id).Value);
+
+        public static CardDataBase[] GetRange(int firstID, int lastID)
+        {
+            int[] rangeIDs = CardDB.Keys.Where(id => id >= firstID && id <= lastID).ToArray();
+
+            List<CardDataBase> cards = new List<CardDataBase>();
+            foreach (int id in rangeIDs)
+            {
+                CardDataBase card = Get(id);
+
+                if (!card) continue;
+
+                cards.Add(card);
+            }
+
+            return cards.ToArray();
+        }
+
+        public static int[] GetIDsByEpisodeRange(int first, int count)
+        {
+            int last = first + count - 1;
+
+            List<int> ids = new List<int>();
+
+            int baseFirstIndex = -1, baseLastIndex = -1;
+            bool firstFound = false, lastFound = false;
+
+            foreach (SagaData saga in DBAsset.Sagas)
+            {
+                foreach (ArcData arc in saga.Arcs)
+                {
+                    if (arc.LastEpisode <= 0 || arc.FirstCardID <= -1 || arc.LastCardID <= -1) continue;
+
+                    // Is the first episode in the target range within this arc's episodes?
+                    if (!firstFound && first <= arc.LastEpisode)
+                    {
+                        // Then start the preliminary card indeces with this arc's IDs
+                        baseFirstIndex = arc.FirstCardID;
+                        firstFound = true;
+                    }
+
+                    // Is the last episode in the target range within this arc's episodes?
+                    if (firstFound)
+                    {
+                        // Then end the preliminary card indeces on this arc's IDs
+                        baseLastIndex = arc.LastCardID;
+
+                        if (last <= arc.LastEpisode) lastFound = true;
+                    }
+
+                    if (firstFound && lastFound) break;
+                }
+
+                if (firstFound && lastFound) break;
+            }
+
+            CardDataBase[] baseCards = GetRange(baseFirstIndex, baseLastIndex);
+            int[] rangeIDs = baseCards.Where(card => card.UnlockEpisode >= first && card.UnlockEpisode <= last).Select(card => card.ID).ToArray();
+
+            return rangeIDs;
+        }
     }
 }

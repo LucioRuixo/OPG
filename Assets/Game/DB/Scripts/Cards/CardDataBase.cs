@@ -16,18 +16,6 @@ namespace OPG.Cards
     /// </summary>
     public abstract class CardDataBase : ScriptableObject
     {
-        [SerializeField, HideInInspector] private int id = -1;
-        /// <summary>
-        /// Application-wide ID for this card data (not card instance-specific).
-        /// </summary>
-        public int ID { get => id; set => id = value; }
-
-        private Entity genericEntity;
-        /// <summary>
-        /// The entity this card portrays as a generic Entity type.
-        /// </summary>
-        protected Entity GenericEntity => genericEntity ??= GetEntity();
-
         /// <summary>
         /// The ID of the entity this card portrays.
         /// </summary>
@@ -36,6 +24,30 @@ namespace OPG.Cards
         /// The ID of the entity this card portrays.
         /// </summary>
         public string EntityID => entityID;
+
+        /// <summary>
+        /// The minimum logged episode to unlock this card.
+        /// </summary>
+        [SerializeField] private int unlockEpisode = -1;
+        /// <summary>
+        /// The minimum logged episode to unlock this card.
+        /// </summary>
+        public int UnlockEpisode => unlockEpisode;
+
+        /// <summary>
+        /// Image of this card's character portraying the corresponding skin.
+        /// </summary>
+        [SerializeField] private Sprite image;
+        /// <summary>
+        /// Image of this card's character portraying the corresponding skin.
+        /// </summary>
+        public Sprite Image => image;
+
+        [SerializeField, HideInInspector] private int id = -1;
+        /// <summary>
+        /// Application-wide ID for this card data (not card instance-specific).
+        /// </summary>
+        public int ID { get => id; set => id = value; }
 
         [SerializeField, HideInInspector] private Collection collection;
         /// <summary>
@@ -48,14 +60,11 @@ namespace OPG.Cards
         /// </summary>
         public abstract CardTypes CardType { get; }
 
+        private Entity genericEntity;
         /// <summary>
-        /// Image of this card's character portraying the corresponding skin.
+        /// The entity this card portrays as a generic Entity type.
         /// </summary>
-        [SerializeField] private Sprite image;
-        /// <summary>
-        /// Image of this card's character portraying the corresponding skin.
-        /// </summary>
-        public Sprite Image => image;
+        protected Entity GenericEntity => genericEntity ??= GetEntity();
 
         /// <summary>
         /// Gets the portrayed entity from the Entity Data Base.

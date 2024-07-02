@@ -6,14 +6,15 @@ using UnityEngine;
 namespace OPG.ProgressionProfiles
 {
     using Cards;
+    using DB;
     using Entities;
 
     public class ProgressionProfile : ScriptableObject
     {
         public int LoggedEpisodes { get; private set; } = 1;
 
-        private List<int> unlockedCards = new List<int>();
-        public List<int> UnlockedCards => unlockedCards.ToList();
+        private List<int> unlockedCardIDs = new List<int>();
+        public List<int> UnlockedCardIDs => unlockedCardIDs.ToList();
 
         private List<int> rolledCards = new List<int>();
 
@@ -24,10 +25,28 @@ namespace OPG.ProgressionProfiles
         #region Episodes
         public void LogEpisodes(int count)
         {
+            int oldLoggedEpisodes = LoggedEpisodes;
+
             LoggedEpisodes += count;
-            if (LoggedEpisodes < 1) LoggedEpisodes = 1;
+            if (LoggedEpisodes < 1)
+            {
+                LoggedEpisodes = 1;
+
+                oldLoggedEpisodes = 0;
+                count = 1;
+
+                unlockedCardIDs = new List<int>(); // Debug
+            }
+
+            UpdateCardUnlocks(oldLoggedEpisodes + 1, count);
 
             OnEpisodesLoggedEvent?.Invoke(LoggedEpisodes);
+        }
+
+        private void UpdateCardUnlocks(int first, int count)
+        {
+            int[] newUnlockedCardIDs = CardDataDB.GetIDsByEpisodeRange(first, count);
+            unlockedCardIDs.AddRange(newUnlockedCardIDs);
         }
         #endregion
 
@@ -48,6 +67,8 @@ namespace OPG.ProgressionProfiles
 
             rolledCards.Add(card.ID);
         }
+
+        public void ResetRolledCards() => rolledCards = new List<int>();
         #endregion
 
         #region Entities
@@ -57,10 +78,5 @@ namespace OPG.ProgressionProfiles
 
         public List<Entity> UnlockedEntitiesOfType(EntityTypes entityType) => EntityProgressionsByID.Values.Select(entityProgression => entityProgression.Entity).Where(entity => entity.EntityType == entityType).ToList();
         #endregion
-
-        // Debug
-        private void Awake() => unlockedCards = new List<int>() { 0, 1, 2, 3, 4 };
-
-        public void ResetRolledCards() => rolledCards = new List<int>();
     }
 }

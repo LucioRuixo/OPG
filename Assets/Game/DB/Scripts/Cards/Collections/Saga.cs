@@ -9,5 +9,8 @@ namespace OPG.Cards
     {
         [SerializeField] new private string name;
         public string Name => name;
+
+        [SerializeField] private string lastEpisode;
+        public string LastEpisode => lastEpisode;
     }
 }
