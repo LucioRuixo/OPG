@@ -35,15 +35,15 @@ namespace OPG.Cards
         /// <summary>
         /// Prefab of a card's body.
         /// </summary>
-        private static GameObject cardPrefab;
-        private static GameObject CardPrefab => cardPrefab ??= Resources.Load<GameObject>(PrefabPath);
+        static private GameObject cardPrefab;
+        static private GameObject CardPrefab => cardPrefab ??= Resources.Load<GameObject>(PrefabPath);
 
         /// <summary>
         /// Size of the card on the screen.
         /// </summary>
         public float Size { get => format.ReferenceSize; set => format.ReferenceSize = value; }
 
-        public static Card InstantiateCard(Transform parent, CardDataBase cardData = null)
+        static public Card InstantiateCard(Transform parent, CardDataBase cardData = null)
         {
             Card card = Instantiate(CardPrefab, parent).GetComponent<Card>();
             if (cardData)

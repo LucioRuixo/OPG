@@ -60,14 +60,14 @@ namespace OPG.DB
         }
         #endregion
 
-        private static readonly string dbFolderPath = $"{LRPaths.projectFolder}/CardDB";
-        private static readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
+        static private readonly string dbFolderPath = $"{LRPaths.projectFolder}/CardDB";
+        static private readonly string cardAssetsPath = $"{OPGPaths.resourcesFolder}/DB/Cards";
 
-        private static readonly string arcRangesFile = $"ranges{Extension.ValidExts[ExtTypes.JSON].Ext}";
-        private static readonly string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
+        static private readonly string arcRangesFile = $"ranges{Extension.ValidExts[ExtTypes.JSON].Ext}";
+        static private readonly string arcRangesPath = $"{dbFolderPath}/{arcRangesFile}";
 
-        private static readonly string cardDBFile = $"cardDB{Extension.ValidExts[ExtTypes.JSON].Ext}";
-        private static readonly string cardDBPath = $"{dbFolderPath}/{cardDBFile}";
+        static private readonly string cardDBFile = $"cardDB{Extension.ValidExts[ExtTypes.JSON].Ext}";
+        static private readonly string cardDBPath = $"{dbFolderPath}/{cardDBFile}";
 
         [SerializeField] private string[] cardTypeProcessingOrder;
 
@@ -76,8 +76,8 @@ namespace OPG.DB
 
         private int arcsRange;
 
-        private static ArcRanges arcRanges;
-        private static ArcRanges ArcRanges
+        static private ArcRanges arcRanges;
+        static private ArcRanges ArcRanges
         {
             get
             {
@@ -86,8 +86,8 @@ namespace OPG.DB
             }
         }
 
-        private static CardDB cardDB;
-        private static CardDB CardDB
+        static private CardDB cardDB;
+        static private CardDB CardDB
         {
             get
             {
@@ -96,8 +96,8 @@ namespace OPG.DB
             }
         }
 
-        private static CardDataDB dbAsset;
-        private static CardDataDB DBAsset => dbAsset ??= Resources.Load<CardDataDB>(CardDBPath);
+        static private CardDataDB dbAsset;
+        static private CardDataDB DBAsset => dbAsset ??= Resources.Load<CardDataDB>(CardDBPath);
 
         #region Serialization
         public void Serialize()
@@ -212,9 +212,9 @@ namespace OPG.DB
         }
         #endregion
 
-        public static CardDataBase Get(int id) => Resources.Load<CardDataBase>(CardDB.ElementAt(id).Value);
+        static public CardDataBase Get(int id) => Resources.Load<CardDataBase>(CardDB.ElementAt(id).Value);
 
-        public static CardDataBase[] GetRange(int firstID, int lastID)
+        static public CardDataBase[] GetRange(int firstID, int lastID)
         {
             int[] rangeIDs = CardDB.Keys.Where(id => id >= firstID && id <= lastID).ToArray();
 
@@ -231,7 +231,7 @@ namespace OPG.DB
             return cards.ToArray();
         }
 
-        public static int[] GetIDsByEpisodeRange(int first, int count)
+        static public int[] GetIDsByEpisodeRange(int first, int count)
         {
             int last = first + count - 1;
 

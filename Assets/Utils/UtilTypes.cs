@@ -11,7 +11,7 @@ namespace OPG.Utils
     #region Classes
     public class Paths
     {
-        public static readonly string resourcesFolder = $"{LRCore.Utils.Paths.assetsFolder}/Resources";
+        static public readonly string resourcesFolder = $"{LRCore.Utils.Paths.assetsFolder}/Resources";
     }
     #endregion
 }

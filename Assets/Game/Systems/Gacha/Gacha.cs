@@ -8,9 +8,9 @@ namespace OPG.Gacha
     using Progression;
     using ProgressionProfiles;
 
-    public static class Gacha
+    static public class Gacha
     {
-        public static event Action<CardDataBase[]> OnRollEvent;
+        static public event Action<CardDataBase[]> OnRollEvent;
 
         public static CardDataBase[] Roll(uint count, ref ProgressionProfile progressionProfile)
         {

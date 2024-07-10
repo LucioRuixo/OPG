@@ -8,17 +8,17 @@ namespace OPG.Utils.UI
         private const string ResourcesUIFolderPath = "UI";
         #endregion
 
-        private static readonly string menuTextFieldPrefabPath = $"{ResourcesUIFolderPath}/MenuTextField";
-        private static readonly string menuButtonPrefabPath = $"{ResourcesUIFolderPath}/MenuButton";
+        static private readonly string menuTextFieldPrefabPath = $"{ResourcesUIFolderPath}/MenuTextField";
+        static private readonly string menuButtonPrefabPath = $"{ResourcesUIFolderPath}/MenuButton";
 
-        private static GameObject menuTextFieldPrefab;
-        private static GameObject MenuTextFieldPrefab => menuTextFieldPrefab ??= Resources.Load<GameObject>(menuTextFieldPrefabPath);
+        static private GameObject menuTextFieldPrefab;
+        static private GameObject MenuTextFieldPrefab => menuTextFieldPrefab ??= Resources.Load<GameObject>(menuTextFieldPrefabPath);
 
-        private static GameObject menuButtonPrefab;
-        private static GameObject MenuButtonPrefab => menuButtonPrefab ??= Resources.Load<GameObject>(menuButtonPrefabPath);
+        static private GameObject menuButtonPrefab;
+        static private GameObject MenuButtonPrefab => menuButtonPrefab ??= Resources.Load<GameObject>(menuButtonPrefabPath);
 
-        public static GameObject GetMenuTextFieldPrefab() => MenuTextFieldPrefab;
+        static public GameObject GetMenuTextFieldPrefab() => MenuTextFieldPrefab;
 
-        public static GameObject GetMenuButtonPrefab() => MenuButtonPrefab;
+        static public GameObject GetMenuButtonPrefab() => MenuButtonPrefab;
     }
 }
