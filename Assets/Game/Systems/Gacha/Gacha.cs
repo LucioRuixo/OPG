@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace OPG.Gacha
 {
@@ -12,20 +11,20 @@ namespace OPG.Gacha
     {
         static public event Action<CardDataBase[]> OnRollEvent;
 
-        public static CardDataBase[] Roll(uint count, ref ProgressionProfile progressionProfile)
+        static public CardDataBase[] Roll(uint count, ProgressionProfileHandler ppHandler)
         {
-            int unlockedCardsCount = progressionProfile.UnlockedCardIDs.Count;
+            int unlockedCardsCount = ppHandler.UnlockedCardIDs.Count;
             
             if (unlockedCardsCount == 0) return null;
 
             CardDataBase[] rolledCards = new CardDataBase[count];
             for (int i = 0; i < count; i++)
             {
-                int cardIndex = progressionProfile.UnlockedCardIDs[UnityEngine.Random.Range(0, unlockedCardsCount)];
+                int cardIndex = ppHandler.UnlockedCardIDs[UnityEngine.Random.Range(0, unlockedCardsCount)];
                 rolledCards[i] = CardDataDB.Get(cardIndex);
             }
 
-            Progression.ProcessRoll(rolledCards, ref progressionProfile);
+            Progression.ProcessRoll(rolledCards, ppHandler);
 
             OnRollEvent?.Invoke(rolledCards);
 

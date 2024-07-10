@@ -12,7 +12,9 @@ namespace OPG.Progression
     {
         static public event Action<CardDataBase[], Entity[]> OnRollProcessedEvent;
 
-		public static void ProcessRoll(CardDataBase[] rolledCards, ref ProgressionProfile progressionProfile)
+        static public void ProcessEpisodeLog(int logCount, ProgressionProfileHandler ppHandler) => ppHandler.LogEpisodes(logCount);
+
+        static public void ProcessRoll(CardDataBase[] rolledCards, ProgressionProfileHandler ppHandler)
         {
             List<CardDataBase> newRolledCards = new List<CardDataBase>();
             List<Entity> unlockedEntities = new List<Entity>();
@@ -20,29 +22,29 @@ namespace OPG.Progression
             for (int i = 0; i < rolledCards.Length; i++)
             {
                 CardDataBase rolledCard = rolledCards[i];
-                ProcessEntity(rolledCard, ref unlockedEntities, ref progressionProfile);
-                ProcessCard(rolledCard, ref newRolledCards, ref progressionProfile);
+                ProcessEntity(rolledCard, ref unlockedEntities, ppHandler);
+                ProcessCard(rolledCard, ref newRolledCards, ppHandler);
             }
 
             OnRollProcessedEvent?.Invoke(newRolledCards.ToArray(), unlockedEntities.ToArray());
         }
 
-        private static void ProcessCard(CardDataBase card, ref List<CardDataBase> newRolledCards, ref ProgressionProfile progressionProfile)
+        static private void ProcessCard(CardDataBase card, ref List<CardDataBase> newRolledCards, ProgressionProfileHandler ppHandler)
         {
-            if (progressionProfile.WasCardRolled(card.ID)) return;
+            if (ppHandler.WasCardRolled(card.ID)) return;
 
-            progressionProfile.RegisterRolledCard(card);
+            ppHandler.RegisterRolledCard(card);
             if (!newRolledCards.Contains(card)) newRolledCards.Add(card);
         }
 
-        private static void ProcessEntity(CardDataBase card, ref List<Entity> unlockedEntities, ref ProgressionProfile progressionProfile)
+        static private void ProcessEntity(CardDataBase card, ref List<Entity> unlockedEntities, ProgressionProfileHandler ppHandler)
         {
             string entityID = card.EntityID;
 
-            if (progressionProfile.IsEntityUnlocked(entityID)) return;
+            if (ppHandler.IsEntityUnlocked(entityID)) return;
 
             Entity entity = card.GetEntity();
-            progressionProfile.UnlockEntity(entityID, entity);
+            ppHandler.UnlockEntity(entityID, entity);
 
             if (!unlockedEntities.Contains(entity)) unlockedEntities.Add(entity);
         }

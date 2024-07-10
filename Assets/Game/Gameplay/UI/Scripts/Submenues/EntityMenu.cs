@@ -13,13 +13,13 @@ namespace OPG.UI
 
         [SerializeField] private EntityViewer entityViewer;
 
-        private ProgressionProfile progressionProfile;
+        private ProgressionProfileHandler ppHandler;
 
         private EntityTypes lastEntityType;
 
         private List<EntityMenuButton> buttons = new List<EntityMenuButton>();
 
-        public void Initialize(ProgressionProfile progressionProfile) => this.progressionProfile = progressionProfile;
+        public void Initialize(ProgressionProfileHandler ppHandler) => this.ppHandler = ppHandler;
 
 		public void Open(EntityTypes entityType, Submenu source)
         {
@@ -35,7 +35,7 @@ namespace OPG.UI
             foreach (EntityMenuButton button in buttons) Destroy(button.gameObject);
             buttons.Clear();
 
-            List<Entity> entitiesOfType = progressionProfile.UnlockedEntitiesOfType(lastEntityType);
+            List<Entity> entitiesOfType = ppHandler.UnlockedEntitiesOfType(lastEntityType);
             entitiesOfType.Sort();
             for (int i = 0; i < entitiesOfType.Count; i++)
             {

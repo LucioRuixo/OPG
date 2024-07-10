@@ -5,26 +5,24 @@ namespace OPG.Gameplay
     using Cards;
     using Gacha;
     using Input;
+    using Progression;
     using ProgressionProfiles;
     using UI;
 
     public class Player : MonoBehaviour
     {
-        [SerializeField] private MainInputContext inputContext;
-        [SerializeField] private EpisodeLogger episodeLogger;
-        [SerializeField] private ProgressionProfile progressionProfile;
+        private MainInputContext inputContext;
+        private EpisodeLogger episodeLogger;
+        private ProgressionProfileHandler ppHandler;
 
-        public ProgressionProfile ProgressionProfile => progressionProfile;
         public Inventory Inventory { get; private set; } = new Inventory();
 
         #region Initialization
-        public void Initialize(MainInputContext inputContext, EpisodeLogger episodeLogger, ProgressionProfile progressionProfile)
+        public void Initialize(MainInputContext inputContext, EpisodeLogger episodeLogger, ProgressionProfileHandler ppHandler)
         {
             this.inputContext = inputContext;
             this.episodeLogger = episodeLogger;
-            this.progressionProfile = progressionProfile;
-
-            progressionProfile.ResetRolledCards(); // Debug
+            this.ppHandler = ppHandler;
 
             SubscribeToInputActions();
         }
@@ -38,8 +36,8 @@ namespace OPG.Gameplay
 
         private void AddToInventory(CardDataBase[] cards) => Inventory.Add(cards);
 
-        public void Roll() => AddToInventory(Gacha.Roll(GameplayManager.BaseRoll, ref progressionProfile));
+        public void Roll() => AddToInventory(Gacha.Roll(GameplayManager.BaseRoll, ppHandler));
 
-        public void LogEpisodes() => progressionProfile.LogEpisodes(episodeLogger.Input);
+        public void LogEpisodes() => Progression.ProcessEpisodeLog(episodeLogger.Input, ppHandler);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace OPG.UI
 {
-    using Gameplay;
+    using ProgressionProfiles;
 
     public class UIManager : MonoBehaviour
     {
@@ -10,10 +10,10 @@ namespace OPG.UI
         [SerializeField] private EpisodeLogger episodeLogger;
         [SerializeField] private MainSidebar sidebar;
 
-        public void Initialize(Player player)
+        public void Initialize(ProgressionProfileHandler ppHandler)
         {
-            episodeLogger.Initialize(player.ProgressionProfile);
-            sidebar.Initialize(player);
+            episodeLogger.Initialize(ppHandler);
+            sidebar.Initialize(ppHandler);
         }
     }
 }

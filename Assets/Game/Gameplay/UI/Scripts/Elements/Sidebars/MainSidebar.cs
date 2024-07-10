@@ -2,17 +2,15 @@ using UnityEngine;
 
 namespace OPG.UI
 {
-    using Gameplay;
+    using ProgressionProfiles;
 
     public class MainSidebar : Sidebar
     {
         [Space]
 
-        [SerializeField] private GameplayManager gameplayManager;
-
         [Header("Submenues")]
         [SerializeField] private WikiMenu wikiMenu;
 
-        public void Initialize(Player player) => wikiMenu.Initialize(player.ProgressionProfile);
+        public void Initialize(ProgressionProfileHandler ppHandler) => wikiMenu.Initialize(ppHandler);
     }
 }

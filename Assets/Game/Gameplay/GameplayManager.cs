@@ -3,6 +3,7 @@ using UnityEngine;
 namespace OPG.Gameplay
 {
     using Input;
+    using ProgressionProfiles;
     using UI;
 
     public class GameplayManager : MonoBehaviour
@@ -26,17 +27,18 @@ namespace OPG.Gameplay
 
         private void Initialize()
         {
-            InstantiatePlayer();
+            ProgressionProfileHandler ppHandler = new ProgressionProfileHandler();
 
-            uiManager.Initialize(player);
+            InstantiatePlayer(ppHandler);
+            uiManager.Initialize(ppHandler);
         }
 
-        private void InstantiatePlayer()
+        private void InstantiatePlayer(ProgressionProfileHandler ppHandler)
         {
             player = new GameObject(PlayerName).AddComponent<Player>();
             player.transform.parent = transform;
 
-            player.Initialize(mainInputContext, episodeLogger, ProgressionProfiles.ProgressionProfiles.LoadProgressionProfile());
+            player.Initialize(mainInputContext, episodeLogger, ppHandler);
         }
     }
 }

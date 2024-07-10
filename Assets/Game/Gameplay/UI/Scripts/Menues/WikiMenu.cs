@@ -16,10 +16,10 @@ namespace OPG.UI
         [SerializeField] private EntityMenu entityMenu;
         [SerializeField] private EntityViewer entityViewer;
 
-        public void Initialize(ProgressionProfile progressionProfile)
+        public void Initialize(ProgressionProfileHandler ppHandler)
         {
-            entityMenu.Initialize(progressionProfile);
-            entityViewer.Initialize(progressionProfile);
+            entityMenu.Initialize(ppHandler);
+            entityViewer.Initialize(ppHandler);
         }
 
         public void OpenEntityMenu(int entityTypeIndex)

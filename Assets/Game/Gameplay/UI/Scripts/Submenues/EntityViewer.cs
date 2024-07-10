@@ -26,13 +26,13 @@ namespace OPG.UI
 
         [SerializeField] private RectTransform infoFieldContainer;
 
-        private ProgressionProfile progressionProfile;
+        private ProgressionProfileHandler ppHandler;
 
         private Entity lastEntity;
 
         private List<TMP_Text> infoFields = new List<TMP_Text>();
 
-        public void Initialize(ProgressionProfile progressionProfile) => this.progressionProfile = progressionProfile;
+        public void Initialize(ProgressionProfileHandler ppHandler) => this.ppHandler = ppHandler;
 
         public void Open(Entity entity, Submenu source)
         {
@@ -43,7 +43,7 @@ namespace OPG.UI
 
         public override void UpdateContent()
         {
-            imageField.sprite = progressionProfile.EntityProgressionsByID[lastEntity.ID].MainImage;
+            imageField.sprite = ppHandler.EntityProgressionsByID[lastEntity.ID].MainImage;
 
             nameField.text = lastEntity.DisplayName;
 

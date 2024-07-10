@@ -14,7 +14,7 @@ namespace OPG.UI
         [SerializeField] private TMP_Text currentEpisodeText;
         [SerializeField] private TMP_InputField inputField;
 
-        private ProgressionProfile progressionProfile;
+        private ProgressionProfileHandler ppHandler;
 
         public int Input { get; private set; }
 
@@ -26,14 +26,14 @@ namespace OPG.UI
             inputField.onSubmit.AddListener(FormatInput);
         }
 
-        public void Initialize(ProgressionProfile progressionProfile)
+        public void Initialize(ProgressionProfileHandler ppHandler)
         {
-            this.progressionProfile = progressionProfile;
-            UpdateCurrentEpisode(progressionProfile.LoggedEpisodes);
+            this.ppHandler = ppHandler;
+            UpdateCurrentEpisode(ppHandler.LoggedEpisodes);
 
-            this.progressionProfile.OnEpisodesLoggedEvent += UpdateCurrentEpisode;
+            this.ppHandler.OnEpisodesLoggedEvent += UpdateCurrentEpisode;
 
-            this.progressionProfile.LogEpisodes(-9999); // Debug
+            this.ppHandler.LogEpisodes(-9999); // Debug
         }
 
         private void ProcessInput(string input)
